@@ -84,22 +84,19 @@
 
 
 
-<meta name="description" content="有了前一篇的Google首页logo链接抓取的经验，学会了怎样向网页发送GET请求、字符串存储整个网页源码、正则表达式的初级使用。在这些基础上，可以开始玩耍了。需求：知乎发现页面上有编辑推荐、今日最热和本月最日的一些问题和回答。我们要把这些问题及问题的链接，还有回答给抓取下来。
-获取整个网页的信息为了简洁优雅，把发送请求，获取源码信息写成一个静态方法static ReadGet(String ur">
+<meta name="description" content="有了前一篇的Google首页logo链接抓取的经验，学会了怎样向网页发送GET请求、字符串存储整个网页源码、正则表达式的初级使用。在这些基础上，可以开始玩耍了。需求：知乎发现页面上有编辑推荐、今日最热和本月最日的一些问题和回答。我们要把这些问题及问题的链接，还有回答给抓取下来。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="知乎脚丫第二弹">
 <meta property="og:url" content="http://henryliyunfeng.github.io/2016/06/27/知乎脚丫第二弹/index.html">
 <meta property="og:site_name" content="Henry's Home">
-<meta property="og:description" content="有了前一篇的Google首页logo链接抓取的经验，学会了怎样向网页发送GET请求、字符串存储整个网页源码、正则表达式的初级使用。在这些基础上，可以开始玩耍了。需求：知乎发现页面上有编辑推荐、今日最热和本月最日的一些问题和回答。我们要把这些问题及问题的链接，还有回答给抓取下来。
-获取整个网页的信息为了简洁优雅，把发送请求，获取源码信息写成一个静态方法static ReadGet(String ur">
+<meta property="og:description" content="有了前一篇的Google首页logo链接抓取的经验，学会了怎样向网页发送GET请求、字符串存储整个网页源码、正则表达式的初级使用。在这些基础上，可以开始玩耍了。需求：知乎发现页面上有编辑推荐、今日最热和本月最日的一些问题和回答。我们要把这些问题及问题的链接，还有回答给抓取下来。">
 <meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%BA%8C%E5%BC%B9_1.jpg">
 <meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%BA%8C%E5%BC%B9_2.jpg">
 <meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%BA%8C%E5%BC%B9_3.jpg">
-<meta property="og:updated_time" content="2016-06-27T13:36:31.927Z">
+<meta property="og:updated_time" content="2016-06-27T13:42:58.835Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="知乎脚丫第二弹">
-<meta name="twitter:description" content="有了前一篇的Google首页logo链接抓取的经验，学会了怎样向网页发送GET请求、字符串存储整个网页源码、正则表达式的初级使用。在这些基础上，可以开始玩耍了。需求：知乎发现页面上有编辑推荐、今日最热和本月最日的一些问题和回答。我们要把这些问题及问题的链接，还有回答给抓取下来。
-获取整个网页的信息为了简洁优雅，把发送请求，获取源码信息写成一个静态方法static ReadGet(String ur">
+<meta name="twitter:description" content="有了前一篇的Google首页logo链接抓取的经验，学会了怎样向网页发送GET请求、字符串存储整个网页源码、正则表达式的初级使用。在这些基础上，可以开始玩耍了。需求：知乎发现页面上有编辑推荐、今日最热和本月最日的一些问题和回答。我们要把这些问题及问题的链接，还有回答给抓取下来。">
 <meta name="twitter:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%BA%8C%E5%BC%B9_1.jpg">
 
 
@@ -319,7 +316,7 @@
       
 
       
-        <p>有了前一篇的Google首页logo链接抓取的经验，学会了怎样向网页发送GET请求、字符串存储整个网页源码、正则表达式的初级使用。在这些基础上，可以开始玩耍了。<br>需求：知乎发现页面上有编辑推荐、今日最热和本月最日的一些问题和回答。我们要把这些问题及问题的链接，还有回答给抓取下来。</p>
+        <p>有了前一篇的Google首页logo链接抓取的经验，学会了怎样向网页发送GET请求、字符串存储整个网页源码、正则表达式的初级使用。在这些基础上，可以开始玩耍了。<br>需求：知乎发现页面上有编辑推荐、今日最热和本月最日的一些问题和回答。我们要把这些问题及问题的链接，还有回答给抓取下来。<br><a id="more"></a></p>
 <h1 id="获取整个网页的信息"><a href="#获取整个网页的信息" class="headerlink" title="获取整个网页的信息"></a>获取整个网页的信息</h1><p>为了简洁优雅，把发送请求，获取源码信息写成一个静态方法<code>static ReadGet(String url)</code>,返回字符串</p>
 <pre><code>static String ReadGet(String url) {  
         // 定义一个字符串用来存储网页内容  
