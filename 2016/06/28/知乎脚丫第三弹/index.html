@@ -1,0 +1,809 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="java,网络爬虫,正则表达式," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="整合代码，简洁明了原谅我这个微强迫症患者,按朋友说得，这是病得治！哈哈，可我觉得还行哈，还蛮舒服的。刚开始就扯远了，为了爬虫抓取知乎发现页面上所有的问题，我写3个类，Spider类——获取网页所有信息，及特定内容；Zhihu类——封装类，存储问题标题、问题的描述、问题的链接地址、评论者名字、和所有的评论；Main类——运行整个项目的启动类。其实还写了一个UnitTest类——单元测试，测试某个方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知乎脚丫第三弹">
+<meta property="og:url" content="http://henryliyunfeng.github.io/2016/06/28/知乎脚丫第三弹/index.html">
+<meta property="og:site_name" content="Henry's Home">
+<meta property="og:description" content="整合代码，简洁明了原谅我这个微强迫症患者,按朋友说得，这是病得治！哈哈，可我觉得还行哈，还蛮舒服的。刚开始就扯远了，为了爬虫抓取知乎发现页面上所有的问题，我写3个类，Spider类——获取网页所有信息，及特定内容；Zhihu类——封装类，存储问题标题、问题的描述、问题的链接地址、评论者名字、和所有的评论；Main类——运行整个项目的启动类。其实还写了一个UnitTest类——单元测试，测试某个方法">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E8%84%9A%E4%B8%AB%E7%AC%AC%E4%B8%89%E5%BC%B9_%E7%9F%A5%E4%B9%8E%E5%8F%91%E7%8E%B0%E9%A1%B5%E9%9D%A2.jpg?imageMogr2/thumbnail/!x75p">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E8%84%9A%E4%B8%AB%E7%AC%AC%E4%B8%89%E5%BC%B9_%E8%AF%84%E8%AE%BA%E9%A1%B5%E9%9D%A2.jpg?imageMogr2/thumbnail/!x75p">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E8%84%9A%E4%B8%AB%E7%AC%AC%E4%B8%89%E5%BC%B9_%E5%85%A8%E9%83%A8%E8%AF%84%E8%AE%BA.jpg?imageMogr2/thumbnail/!x75p">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E9%97%AE%E9%A2%98%E6%A0%87%E9%A2%98code.jpg">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E9%97%AE%E9%A2%98%E7%9A%84%E6%8F%8F%E8%BF%B0code.jpg">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E8%AF%84%E8%AE%BA%E8%80%85%E5%90%8D%E5%AD%97code.jpg">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E8%AF%84%E8%AE%BAcode.jpg">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E6%B5%8B%E8%AF%95.jpg">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E6%B5%8B%E8%AF%952.jpg">
+<meta property="og:updated_time" content="2016-06-28T08:32:48.608Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="知乎脚丫第三弹">
+<meta name="twitter:description" content="整合代码，简洁明了原谅我这个微强迫症患者,按朋友说得，这是病得治！哈哈，可我觉得还行哈，还蛮舒服的。刚开始就扯远了，为了爬虫抓取知乎发现页面上所有的问题，我写3个类，Spider类——获取网页所有信息，及特定内容；Zhihu类——封装类，存储问题标题、问题的描述、问题的链接地址、评论者名字、和所有的评论；Main类——运行整个项目的启动类。其实还写了一个UnitTest类——单元测试，测试某个方法">
+<meta name="twitter:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E8%84%9A%E4%B8%AB%E7%AC%AC%E4%B8%89%E5%BC%B9_%E7%9F%A5%E4%B9%8E%E5%8F%91%E7%8E%B0%E9%A1%B5%E9%9D%A2.jpg?imageMogr2/thumbnail/!x75p">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://henryliyunfeng.github.io/2016/06/28/知乎脚丫第三弹/"/>
+
+  <title> 知乎脚丫第三弹 | Henry's Home </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Henry's Home</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">一步一脚印</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                知乎脚丫第三弹
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-28T14:18:36+08:00" content="2016-06-28">
+              2016-06-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/爬虫/" itemprop="url" rel="index">
+                    <span itemprop="name">爬虫</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/28/知乎脚丫第三弹/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/28/知乎脚丫第三弹/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="整合代码，简洁明了"><a href="#整合代码，简洁明了" class="headerlink" title="整合代码，简洁明了"></a>整合代码，简洁明了</h1><p>原谅我这个微强迫症患者,按朋友说得，这是病得治！哈哈，可我觉得还行哈，还蛮舒服的。刚开始就扯远了，为了爬虫抓取知乎发现页面上所有的问题，我写3个类，<code>Spider</code>类——获取网页所有信息，及特定内容；<code>Zhihu</code>类——封装类，存储问题标题、问题的描述、问题的链接地址、评论者名字、和所有的评论；<code>Main</code>类——运行整个项目的启动类。其实还写了一个<code>UnitTest</code>类——单元测试，测试某个方法或者模块是否正确。我觉得单元测试还是很有必要的，与其出错逐句找Bug，倒不如保证每个模块的正确，即便最后出错，也能快速定位到err的地方。<br><a id="more"></a></p>
+<h2 id="区分3个网页"><a href="#区分3个网页" class="headerlink" title="区分3个网页"></a>区分3个网页</h2><p>1、<strong>知乎发现页面</strong><a href="https://www.zhihu.com/explore" target="_blank" rel="external">https://www.zhihu.com/explore</a>，这个页面就是第一次爬虫走过的页面，获取所有问题的链接地址。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E8%84%9A%E4%B8%AB%E7%AC%AC%E4%B8%89%E5%BC%B9_%E7%9F%A5%E4%B9%8E%E5%8F%91%E7%8E%B0%E9%A1%B5%E9%9D%A2.jpg?imageMogr2/thumbnail/!x75p" alt="enter description here"><br>2、<strong>问题评论页面</strong><a href="https://www.zhihu.com/question/47684665/answer/108154821" target="_blank" rel="external">https://www.zhihu.com/question/47684665/answer/108154821</a>，这个页面虽然有关于问题的评论，但是并没有全部评论的信息。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E8%84%9A%E4%B8%AB%E7%AC%AC%E4%B8%89%E5%BC%B9_%E8%AF%84%E8%AE%BA%E9%A1%B5%E9%9D%A2.jpg?imageMogr2/thumbnail/!x75p" alt="enter description here"><br>3、<strong>问题所有评论的页面</strong><a href="https://www.zhihu.com/question/47684665" target="_blank" rel="external">https://www.zhihu.com/question/47684665</a>，这个页面就是终极页面，小虫子能爬到这，就算功德圆满了。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E8%84%9A%E4%B8%AB%E7%AC%AC%E4%B8%89%E5%BC%B9_%E5%85%A8%E9%83%A8%E8%AF%84%E8%AE%BA.jpg?imageMogr2/thumbnail/!x75p" alt="enter description here"></p>
+<h2 id="把重要的信息封装起来"><a href="#把重要的信息封装起来" class="headerlink" title="把重要的信息封装起来"></a>把重要的信息封装起来</h2><p>创建<code>Zhihu</code>类，给<code>Zhihu</code>的构造器一个<code>url</code>参数，这样只要判定<code>url</code>是终极页面的地址，就可以爬取所要的一切信息。怎么判定呢，交给<code>getRealUrl()</code>方法。<br>其中还有一些正则表达式书写，这就要对网页的源码分析。问题的标题可以用“zh-question-title.+?&gt;<h2.+?>.+?&gt;(.+?)&lt;”，只要抓住关键信息，这里就是<em>zh-question-title</em>。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E9%97%AE%E9%A2%98%E6%A0%87%E9%A2%98code.jpg" alt="enter description here"><br>其他的也是一样，如法炮制。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E9%97%AE%E9%A2%98%E7%9A%84%E6%8F%8F%E8%BF%B0code.jpg" alt="enter description here">问题的描述，这边要注意，有时候不止一个描述，所以正则表达式要涵盖所有的描述语句。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E8%AF%84%E8%AE%BA%E8%80%85%E5%90%8D%E5%AD%97code.jpg" alt="enter description here">评论者的名字<br>注意：对所有评论的获取不是一个正则能搞定的。暂且用<code>/answer/content.+?&lt;div.+?&gt;(.*?)&lt;/div&gt;</code>替代。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E8%AF%84%E8%AE%BAcode.jpg" alt="enter description here"><br>来…来…来，我又来贴代码了</h2.+?></p>
+<pre><code>/*
+ * 设计一个Zhihu封装类，来存储所有抓取到的对象
+ * 5个字段：问题标题、问题的描述、问题对应的链接、评论者的名字、所有的评论信息
+ *getRealUrl(String url)方法
+ */
+import java.util.ArrayList;
+import java.util.regex.Pattern;  
+import java.util.regex.Matcher;  
+
+public class Zhihu {  
+    public String question;// 问题的标题 
+    public String questionDescription;//对问题的描述
+    public String zhihuUrl;// 问题对应的链接  
+    public ArrayList&lt;String&gt; answersName;//所有评论者的名字
+    public ArrayList&lt;String&gt; answers;// 存储所有回答的数组  
+
+    // 带参数&lt;String url&gt;的构造器
+    public Zhihu(String url) {  
+        question = &quot;&quot;;  
+        questionDescription=&quot;&quot;;
+        zhihuUrl = &quot;&quot;;  
+        answersName=new ArrayList&lt;String&gt;();
+        answers = new ArrayList&lt;String&gt;();  
+
+        if(getRealUrl(url)){
+            System.out.println(&quot;该问题全部回答的页面地址=&quot;+zhihuUrl);
+            //根据该问题所在的页面地址，爬虫子页面所有内容
+            String allContent=Spider.ReadPage(zhihuUrl);
+            //抓取问题
+            Pattern questionPattern=Pattern.compile(&quot;zh-question-title.+?&gt;&lt;h2.+?&gt;.+?&gt;(.+?)&lt;&quot;);
+            Matcher questionMatcher=questionPattern.matcher(allContent);
+            if(questionMatcher.find())
+                question=questionMatcher.group(1);
+            //抓去问题描述
+            Pattern descriptionPattern=Pattern.compile(&quot;zh-question-detail.+?&gt;&lt;div.+?&gt;(.+?)&lt;/div&gt;&quot;);
+            Matcher descriptionMatcher=descriptionPattern.matcher(allContent);
+            if(descriptionMatcher.find())
+                questionDescription=descriptionMatcher.group(1);
+            //抓取评论者的姓名
+            Pattern namePattern=Pattern.compile(&quot;data-author-name=\&quot;(.+?)\&quot;&quot;);
+            Matcher nameMatcher=namePattern.matcher(allContent);
+            Boolean nameFind=nameMatcher.find();
+            //不停地抓取问题页面上所有评论者的姓名
+            while(nameFind){
+                answersName.add(nameMatcher.group(1));
+                nameFind=nameMatcher.find();
+            }
+            //抓取所有回答
+            Pattern answersPattern=Pattern.compile(&quot;/answer/content.+?&lt;div.+?&gt;(.*?)&lt;/div&gt;&quot;);
+            Matcher answerMatcher=answersPattern.matcher(allContent);
+            Boolean answerFind=answerMatcher.find();
+            while(answerFind){
+                answers.add(answerMatcher.group(1));
+                answerFind=answerMatcher.find();
+            }
+        }
+    } 
+    /*
+     * 把链接：https://www.zhihu.com/question/46727998/answer/108099200
+     * 转变成：https://www.zhihu.com/question/46727998
+     * 后者才是所有回答的网页真实地址
+     */
+    public boolean getRealUrl(String url){
+        Pattern linkPattern=Pattern.compile(&quot;question/(.+?)/&quot;);
+        Matcher linkMatcher=linkPattern.matcher(url);
+        if(linkMatcher.find()){
+            zhihuUrl=&quot;https://www.zhihu.com/question/&quot;+linkMatcher.group(1);
+            return true;
+        }
+        return false;            
+    }
+
+    @Override  
+    public String toString() {  
+        return &quot;问题标题：&quot; + question + &quot;\n问题的描述：&quot;+questionDescription+&quot;\n链接：&quot; + zhihuUrl +&quot;\n评论者：&quot;+answersName+ &quot;\n回答：&quot; + answers.size() + &quot;\n&quot;;  
+    }  
+}  
+</code></pre><h2 id="于Spider类中添加GetZhihu-方法"><a href="#于Spider类中添加GetZhihu-方法" class="headerlink" title="于Spider类中添加GetZhihu()方法"></a>于Spider类中添加GetZhihu()方法</h2><p>抓取知乎发现页面上所有问题的链接地址,并返回该问题链接下的Zhihu类对象，每个问题对应一个Zhihu类对象，把这些Zhihu类对象放到数组中。</p>
+<pre><code>/*
+     * 抓取知乎发现页面上所有问题的链接地址,
+     * 并返回该问题链接下的Zhihu类对象，
+     * 每个问题对应一个Zhihu类对象，把这些Zhihu类对象放到数组中
+     */
+    static ArrayList&lt;Zhihu&gt; GetZhihu(String content) {  
+       ArrayList&lt;Zhihu&gt; res=new ArrayList&lt;Zhihu&gt;();
+       //埋好陷阱，等着掉下去
+       //形如&lt;h2&gt;&lt;a class=&quot;question_link&quot; target=&quot;_blank&quot; href=&quot;/question/46727998/answer/108099200&quot;&gt;《守望先锋》有可能出手游吗？&lt;/a&gt;&lt;/h2&gt;
+       //抓取 这部分，/question/46727998/answer/108099200      
+       Pattern urlPattern=Pattern.compile(&quot;question_link.+?href=\&quot;(.+?)\&quot;&gt;&quot;);
+       Matcher questionMatcher=urlPattern.matcher(content);
+       //是否掉到陷阱里面
+       Boolean isFind = questionMatcher.find();  
+       while(isFind){
+           //存储刚才定义的知乎对象，数组里面都是Zhihu对象
+           Zhihu zhihuTmp=new Zhihu(&quot;https://www.zhihu.com&quot;+questionMatcher.group(1));//参数是问题的地址的完整链接
+           res.add(zhihuTmp);
+           //继续查找下一个匹配对象
+           isFind=questionMatcher.find();
+       }
+       return res;
+    }  
+</code></pre><h1 id="运行测试"><a href="#运行测试" class="headerlink" title="运行测试"></a>运行测试</h1><h2 id="Main类"><a href="#Main类" class="headerlink" title="Main类"></a>Main类</h2><pre><code>/*
+ * 使用爬虫来获取知乎发现页面上的内容
+ */
+import java.util.ArrayList;  
+
+public class Main {  
+
+    public static void main(String[] args) {  
+        //知乎的发现页面
+        String url=&quot;https://www.zhihu.com/explore&quot;;
+        // 访问链接并获取页面内容  
+        String content = Spider.ReadPage(url);  
+        // 获取该页面的所有的知乎对象  
+        ArrayList&lt;Zhihu&gt; myZhihu = Spider.GetZhihu(content);  
+
+        // 打印结果  
+        System.out.println(content);
+        System.out.println(myZhihu);
+
+    }  
+}  
+</code></pre><p>可以明显地看到运行的速度变慢了，这是因为，比如知乎发现页面上有15个问题，那么小虫子就要爬到这15个网页摸数据，花的时间自然多了。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E6%B5%8B%E8%AF%95.jpg" alt="enter description here"><br>好了，我要开始跑了，就要跑了。。。。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E6%B5%8B%E8%AF%952.jpg" alt="enter description here"><br>还是差点什么，貌似问题的描述抓得不正确，明天继续！</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag">#java</a>
+          
+            <a href="/tags/网络爬虫/" rel="tag">#网络爬虫</a>
+          
+            <a href="/tags/正则表达式/" rel="tag">#正则表达式</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/27/知乎脚丫第二弹/" rel="next" title="知乎脚丫第二弹">
+                <i class="fa fa-chevron-left"></i> 知乎脚丫第二弹
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/06/28/知乎脚丫第三弹/"
+     data-title="知乎脚丫第三弹"
+     data-content=""
+     data-url="http://henryliyunfeng.github.io/2016/06/28/知乎脚丫第三弹/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/28/知乎脚丫第三弹/"
+           data-title="知乎脚丫第三弹" data-url="http://henryliyunfeng.github.io/2016/06/28/知乎脚丫第三弹/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xvohu.com1.z0.glb.clouddn.com/%E5%A4%B4%E5%83%8F.jpg"
+               alt="李昀峰" />
+          <p class="site-author-name" itemprop="name">李昀峰</p>
+          <p class="site-description motion-element" itemprop="description">码农，程序员，未来昏析师</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/henryliyunfeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2953020495" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/li-xiao-yun-41-61" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#整合代码，简洁明了"><span class="nav-number">1.</span> <span class="nav-text">整合代码，简洁明了</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#区分3个网页"><span class="nav-number">1.1.</span> <span class="nav-text">区分3个网页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#把重要的信息封装起来"><span class="nav-number">1.2.</span> <span class="nav-text">把重要的信息封装起来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#于Spider类中添加GetZhihu-方法"><span class="nav-number">1.3.</span> <span class="nav-text">于Spider类中添加GetZhihu()方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行测试"><span class="nav-number">2.</span> <span class="nav-text">运行测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Main类"><span class="nav-number">2.1.</span> <span class="nav-text">Main类</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李昀峰</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"henryliyunfeng"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
