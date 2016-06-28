@@ -99,7 +99,7 @@
 <meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E8%AF%84%E8%AE%BAcode.jpg">
 <meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E6%B5%8B%E8%AF%95.jpg">
 <meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E6%B5%8B%E8%AF%952.jpg">
-<meta property="og:updated_time" content="2016-06-28T08:54:48.558Z">
+<meta property="og:updated_time" content="2016-06-28T10:07:29.256Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="知乎脚丫第三弹">
 <meta name="twitter:description" content="整合代码，简洁明了原谅我这个微强迫症患者,按朋友说得，这是病得治！哈哈，可我觉得还行哈，还蛮舒服的。刚开始就扯远了，为了爬虫抓取知乎发现页面上所有的问题，我写3个类，Spider类——获取网页所有信息，及特定内容；Zhihu类——封装类，存储问题标题、问题的描述、问题的链接地址、评论者名字、和所有的评论；Main类——运行整个项目的启动类。其实还写了一个UnitTest类——单元测试，测试某个方法">
@@ -333,130 +333,10 @@
       
         <h1 id="整合代码，简洁明了"><a href="#整合代码，简洁明了" class="headerlink" title="整合代码，简洁明了"></a>整合代码，简洁明了</h1><p>原谅我这个微强迫症患者,按朋友说得，这是病得治！哈哈，可我觉得还行哈，还蛮舒服的。刚开始就扯远了，为了爬虫抓取知乎发现页面上所有的问题，我写3个类，<code>Spider</code>类——获取网页所有信息，及特定内容；<code>Zhihu</code>类——封装类，存储问题标题、问题的描述、问题的链接地址、评论者名字、和所有的评论；<code>Main</code>类——运行整个项目的启动类。其实还写了一个<code>UnitTest</code>类——单元测试，测试某个方法或者模块是否正确。我觉得单元测试还是很有必要的，与其出错逐句找Bug，倒不如保证每个模块的正确，即便最后出错，也能快速定位到err的地方。<br><a id="more"></a></p>
 <h2 id="区分3个网页"><a href="#区分3个网页" class="headerlink" title="区分3个网页"></a>区分3个网页</h2><p>1、<strong>知乎发现页面</strong><a href="https://www.zhihu.com/explore" target="_blank" rel="external">https://www.zhihu.com/explore</a>，这个页面就是第一次爬虫走过的页面，获取所有问题的链接地址。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E8%84%9A%E4%B8%AB%E7%AC%AC%E4%B8%89%E5%BC%B9_%E7%9F%A5%E4%B9%8E%E5%8F%91%E7%8E%B0%E9%A1%B5%E9%9D%A2.jpg?imageMogr2/thumbnail/!x75p" alt="enter description here"><br>2、<strong>问题评论页面</strong><a href="https://www.zhihu.com/question/47684665/answer/108154821" target="_blank" rel="external">https://www.zhihu.com/question/47684665/answer/108154821</a>，这个页面虽然有关于问题的评论，但是并没有全部评论的信息。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E8%84%9A%E4%B8%AB%E7%AC%AC%E4%B8%89%E5%BC%B9_%E8%AF%84%E8%AE%BA%E9%A1%B5%E9%9D%A2.jpg?imageMogr2/thumbnail/!x75p" alt="enter description here"><br>3、<strong>问题所有评论的页面</strong><a href="https://www.zhihu.com/question/47684665" target="_blank" rel="external">https://www.zhihu.com/question/47684665</a>，这个页面就是终极页面，小虫子能爬到这，就算功德圆满了。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E8%84%9A%E4%B8%AB%E7%AC%AC%E4%B8%89%E5%BC%B9_%E5%85%A8%E9%83%A8%E8%AF%84%E8%AE%BA.jpg?imageMogr2/thumbnail/!x75p" alt="enter description here"></p>
-<h2 id="把重要的信息封装起来"><a href="#把重要的信息封装起来" class="headerlink" title="把重要的信息封装起来"></a>把重要的信息封装起来</h2><p>创建<code>Zhihu</code>类，给<code>Zhihu</code>的构造器一个<code>url</code>参数，这样只要判定<code>url</code>是终极页面的地址，就可以爬取所要的一切信息。怎么判定呢，交给<code>getRealUrl()</code>方法。<br>其中还有一些正则表达式书写，这就要对网页的源码分析。问题的标题可以用“zh-question-title.+?&gt;<h2.+?>.+?&gt;(.+?)&lt;”，只要抓住关键信息，这里就是<em>zh-question-title</em>。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E9%97%AE%E9%A2%98%E6%A0%87%E9%A2%98code.jpg" alt="enter description here"><br>其他的也是一样，如法炮制。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E9%97%AE%E9%A2%98%E7%9A%84%E6%8F%8F%E8%BF%B0code.jpg" alt="enter description here">问题的描述，这边要注意，有时候不止一个描述，所以正则表达式要涵盖所有的描述语句。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E8%AF%84%E8%AE%BA%E8%80%85%E5%90%8D%E5%AD%97code.jpg" alt="enter description here">评论者的名字<br>注意：对所有评论的获取不是一个正则能搞定的。暂且用<code>/answer/content.+?&lt;div.+?&gt;(.*?)&lt;/div&gt;</code>替代。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E8%AF%84%E8%AE%BAcode.jpg" alt="enter description here"><br>来…来…来，我又来贴代码了</h2.+?></p>
-<pre><code>/*
-* 设计一个Zhihu封装类，来存储所有抓取到的对象
-* 5个字段：问题标题、问题的描述、问题对应的链接、评论者的名字、所有的评论信息
-*getRealUrl(String url)方法
-*/
-import java.util.ArrayList;
-import java.util.regex.Pattern;  
-import java.util.regex.Matcher;  
-
-public class Zhihu {  
-    public String question;// 问题的标题 
-    public String questionDescription;//对问题的描述
-    public String zhihuUrl;// 问题对应的链接  
-    public ArrayList&lt;String&gt; answersName;//所有评论者的名字
-    public ArrayList&lt;String&gt; answers;// 存储所有回答的数组  
-
-    // 带参数&lt;String url&gt;的构造器
-    public Zhihu(String url) {  
-        question = &quot;&quot;;  
-        questionDescription=&quot;&quot;;
-        zhihuUrl = &quot;&quot;;  
-        answersName=new ArrayList&lt;String&gt;();
-        answers = new ArrayList&lt;String&gt;();  
-
-        if(getRealUrl(url)){
-            System.out.println(&quot;该问题全部回答的页面地址=&quot;+zhihuUrl);
-            //根据该问题所在的页面地址，爬虫子页面所有内容
-            String allContent=Spider.ReadPage(zhihuUrl);
-            //抓取问题
-            Pattern questionPattern=Pattern.compile(&quot;zh-question-title.+?&gt;&lt;h2.+?&gt;.+?&gt;(.+?)&lt;&quot;);
-            Matcher questionMatcher=questionPattern.matcher(allContent);
-            if(questionMatcher.find())
-                question=questionMatcher.group(1);
-            //抓去问题描述
-            Pattern descriptionPattern=Pattern.compile(&quot;zh-question-detail.+?&gt;&lt;div.+?&gt;(.+?)&lt;/div&gt;&quot;);
-            Matcher descriptionMatcher=descriptionPattern.matcher(allContent);
-            if(descriptionMatcher.find())
-                questionDescription=descriptionMatcher.group(1);
-            //抓取评论者的姓名
-            Pattern namePattern=Pattern.compile(&quot;data-author-name=\&quot;(.+?)\&quot;&quot;);
-            Matcher nameMatcher=namePattern.matcher(allContent);
-            Boolean nameFind=nameMatcher.find();
-            //不停地抓取问题页面上所有评论者的姓名
-            while(nameFind){
-                answersName.add(nameMatcher.group(1));
-                nameFind=nameMatcher.find();
-            }
-            //抓取所有回答
-            Pattern answersPattern=Pattern.compile(&quot;/answer/content.+?&lt;div.+?&gt;(.*?)&lt;/div&gt;&quot;);
-            Matcher answerMatcher=answersPattern.matcher(allContent);
-            Boolean answerFind=answerMatcher.find();
-            while(answerFind){
-                answers.add(answerMatcher.group(1));
-                answerFind=answerMatcher.find();
-            }
-        }
-    } 
-    /*
-     * 把链接：https://www.zhihu.com/question/46727998/answer/108099200
-     * 转变成：https://www.zhihu.com/question/46727998
-     * 后者才是所有回答的网页真实地址
-     */
-    public boolean getRealUrl(String url){
-        Pattern linkPattern=Pattern.compile(&quot;question/(.+?)/&quot;);
-        Matcher linkMatcher=linkPattern.matcher(url);
-        if(linkMatcher.find()){
-            zhihuUrl=&quot;https://www.zhihu.com/question/&quot;+linkMatcher.group(1);
-            return true;
-        }
-        return false;            
-    }
-
-    @Override  
-    public String toString() {  
-        return &quot;问题标题：&quot; + question + &quot;\n问题的描述：&quot;+questionDescription+&quot;\n链接：&quot; + zhihuUrl +&quot;\n评论者：&quot;+answersName+ &quot;\n回答：&quot; + answers.size() + &quot;\n&quot;;  
-    }  
-}  
-</code></pre><h2 id="于Spider类中添加GetZhihu-方法"><a href="#于Spider类中添加GetZhihu-方法" class="headerlink" title="于Spider类中添加GetZhihu()方法"></a>于Spider类中添加GetZhihu()方法</h2><p>抓取知乎发现页面上所有问题的链接地址,并返回该问题链接下的Zhihu类对象，每个问题对应一个Zhihu类对象，把这些Zhihu类对象放到数组中。</p>
-<pre><code>/*
-     * 抓取知乎发现页面上所有问题的链接地址,
-     * 并返回该问题链接下的Zhihu类对象，
-     * 每个问题对应一个Zhihu类对象，把这些Zhihu类对象放到数组中
-     */
-    static ArrayList&lt;Zhihu&gt; GetZhihu(String content) {  
-       ArrayList&lt;Zhihu&gt; res=new ArrayList&lt;Zhihu&gt;();
-       //埋好陷阱，等着掉下去
-       //形如&lt;h2&gt;&lt;a class=&quot;question_link&quot; target=&quot;_blank&quot; href=&quot;/question/46727998/answer/108099200&quot;&gt;《守望先锋》有可能出手游吗？&lt;/a&gt;&lt;/h2&gt;
-       //抓取 这部分，/question/46727998/answer/108099200      
-       Pattern urlPattern=Pattern.compile(&quot;question_link.+?href=\&quot;(.+?)\&quot;&gt;&quot;);
-       Matcher questionMatcher=urlPattern.matcher(content);
-       //是否掉到陷阱里面
-       Boolean isFind = questionMatcher.find();  
-       while(isFind){
-           //存储刚才定义的知乎对象，数组里面都是Zhihu对象
-           Zhihu zhihuTmp=new Zhihu(&quot;https://www.zhihu.com&quot;+questionMatcher.group(1));//参数是问题的地址的完整链接
-           res.add(zhihuTmp);
-           //继续查找下一个匹配对象
-           isFind=questionMatcher.find();
-       }
-       return res;
-    }  
-</code></pre><h1 id="运行测试"><a href="#运行测试" class="headerlink" title="运行测试"></a>运行测试</h1><h2 id="Main类"><a href="#Main类" class="headerlink" title="Main类"></a>Main类</h2><pre><code>/*
- * 使用爬虫来获取知乎发现页面上的内容
- */
-import java.util.ArrayList;  
-
-public class Main {  
-
-    public static void main(String[] args) {  
-        //知乎的发现页面
-        String url=&quot;https://www.zhihu.com/explore&quot;;
-        // 访问链接并获取页面内容  
-        String content = Spider.ReadPage(url);  
-        // 获取该页面的所有的知乎对象  
-        ArrayList&lt;Zhihu&gt; myZhihu = Spider.GetZhihu(content);  
-
-        // 打印结果  
-        System.out.println(content);
-        System.out.println(myZhihu);
-
-    }  
-}  
-</code></pre><p>可以明显地看到运行的速度变慢了，这是因为，比如知乎发现页面上有15个问题，那么小虫子就要爬到这15个网页摸数据，花的时间自然多了。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E6%B5%8B%E8%AF%95.jpg" alt="enter description here"><br>好了，我要开始跑了，就要跑了。。。。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E6%B5%8B%E8%AF%952.jpg" alt="enter description here"><br>还是差点什么，貌似问题的描述抓得不正确，明天继续！</p>
+<h2 id="把重要的信息封装起来"><a href="#把重要的信息封装起来" class="headerlink" title="把重要的信息封装起来"></a>把重要的信息封装起来</h2><p>创建<code>Zhihu</code>类，给<code>Zhihu</code>的构造器一个<code>url</code>参数，这样只要判定<code>url</code>是终极页面的地址，就可以爬取所要的一切信息。怎么判定呢，交给<code>getRealUrl()</code>方法。<br>其中还有一些正则表达式书写，这就要对网页的源码分析。问题的标题可以用“zh-question-title.+?&gt;<h2.+?>.+?&gt;(.+?)&lt;”，只要抓住关键信息，这里就是<em>zh-question-title</em>。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E9%97%AE%E9%A2%98%E6%A0%87%E9%A2%98code.jpg" alt="enter description here"><br>其他的也是一样，如法炮制。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E9%97%AE%E9%A2%98%E7%9A%84%E6%8F%8F%E8%BF%B0code.jpg" alt="enter description here">问题的描述，这边要注意，有时候不止一个描述，所以正则表达式要涵盖所有的描述语句。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E8%AF%84%E8%AE%BA%E8%80%85%E5%90%8D%E5%AD%97code.jpg" alt="enter description here">评论者的名字<br>注意：对所有评论的获取不是一个正则能搞定的。暂且用<code>/answer/content.+?&lt;div.+?&gt;(.*?)&lt;/div&gt;</code>替代。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E8%AF%84%E8%AE%BAcode.jpg" alt="enter description here"><br>来…来…来，我又来贴代码了<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">/*</span><br><span class="line">    * 设计一个Zhihu封装类，来存储所有抓取到的对象</span><br><span class="line">    * 5个字段：问题标题、问题的描述、问题对应的链接、评论者的名字、所有的评论信息</span><br><span class="line">    *getRealUrl(String url)方法</span><br><span class="line">    */</span></span><br><span class="line">    <span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line">    <span class="keyword">import</span> java.util.regex.Pattern;  </span><br><span class="line">    <span class="keyword">import</span> java.util.regex.Matcher;  </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> Zhihu &#123;  </span><br><span class="line">        <span class="keyword">public</span> String question;<span class="comment">// 问题的标题 </span></span><br><span class="line">        <span class="keyword">public</span> String questionDescription;<span class="comment">//对问题的描述</span></span><br><span class="line">        <span class="keyword">public</span> String zhihuUrl;<span class="comment">// 问题对应的链接  </span></span><br><span class="line">        <span class="keyword">public</span> ArrayList&lt;String&gt; answersName;<span class="comment">//所有评论者的名字</span></span><br><span class="line">        <span class="keyword">public</span> ArrayList&lt;String&gt; answers;<span class="comment">// 存储所有回答的数组  </span></span><br><span class="line">        <span class="comment">// 带参数&lt;String url&gt;的构造器</span></span><br><span class="line">        <span class="keyword">public</span> Zhihu(String url) &#123;  </span><br><span class="line">            question = <span class="string">""</span>;  </span><br><span class="line">            questionDescription=<span class="string">""</span>;</span><br><span class="line">            zhihuUrl = <span class="string">""</span>;  </span><br><span class="line">            answersName=<span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">            answers = <span class="keyword">new</span> ArrayList&lt;String&gt;();  </span><br><span class="line">            <span class="keyword">if</span>(getRealUrl(url))&#123;</span><br><span class="line">            	System.out.<span class="keyword">println</span>(<span class="string">"该问题全部回答的页面地址="</span>+zhihuUrl);</span><br><span class="line">            	<span class="comment">//根据该问题所在的页面地址，爬虫子页面所有内容</span></span><br><span class="line">            	String allContent=Spider.ReadPage(zhihuUrl);</span><br><span class="line">            	<span class="comment">//抓取问题</span></span><br><span class="line">            	Pattern questionPattern=Pattern.<span class="keyword">compile</span>(<span class="string">"zh-question-title.+?&gt;&lt;h2.+?&gt;.+?&gt;(.+?)&lt;"</span>);</span><br><span class="line">            	Matcher questionMatcher=questionPattern.matcher(allContent);</span><br><span class="line">            	<span class="keyword">if</span>(questionMatcher.<span class="keyword">find</span>())</span><br><span class="line">            		question=questionMatcher.<span class="keyword">group</span>(<span class="number">1</span>);</span><br><span class="line">            	<span class="comment">//抓去问题描述</span></span><br><span class="line">            	Pattern descriptionPattern=Pattern.<span class="keyword">compile</span>(<span class="string">"zh-question-detail.+?&gt;&lt;div.+?&gt;(.+?)&lt;/div&gt;"</span>);</span><br><span class="line">            	Matcher descriptionMatcher=descriptionPattern.matcher(allContent);</span><br><span class="line">            	<span class="keyword">if</span>(descriptionMatcher.<span class="keyword">find</span>())</span><br><span class="line">            		questionDescription=descriptionMatcher.<span class="keyword">group</span>(<span class="number">1</span>);</span><br><span class="line">            	<span class="comment">//抓取评论者的姓名</span></span><br><span class="line">            	Pattern namePattern=Pattern.<span class="keyword">compile</span>(<span class="string">"data-author-name=\"(.+?)\""</span>);</span><br><span class="line">            	Matcher nameMatcher=namePattern.matcher(allContent);</span><br><span class="line">            	<span class="keyword">Boolean</span> nameFind=nameMatcher.<span class="keyword">find</span>();</span><br><span class="line">            	<span class="comment">//不停地抓取问题页面上所有评论者的姓名</span></span><br><span class="line">            	<span class="keyword">while</span>(nameFind)&#123;</span><br><span class="line">            		answersName.add(nameMatcher.<span class="keyword">group</span>(<span class="number">1</span>));</span><br><span class="line">            		nameFind=nameMatcher.<span class="keyword">find</span>();</span><br><span class="line">            	&#125;</span><br><span class="line">            	<span class="comment">//抓取所有回答</span></span><br><span class="line">            	Pattern answersPattern=Pattern.<span class="keyword">compile</span>(<span class="string">"/answer/content.+?&lt;div.+?&gt;(.*?)&lt;/div&gt;"</span>);</span><br><span class="line">            	Matcher answerMatcher=answersPattern.matcher(allContent);</span><br><span class="line">            	<span class="keyword">Boolean</span> answerFind=answerMatcher.<span class="keyword">find</span>();</span><br><span class="line">            	<span class="keyword">while</span>(answerFind)&#123;</span><br><span class="line">            		answers.add(answerMatcher.<span class="keyword">group</span>(<span class="number">1</span>));</span><br><span class="line">            		answerFind=answerMatcher.<span class="keyword">find</span>();</span><br><span class="line">            	&#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="comment">/*</span><br><span class="line">         * 把链接：https://www.zhihu.com/question/46727998/answer/108099200</span><br><span class="line">         * 转变成：https://www.zhihu.com/question/46727998</span><br><span class="line">         * 后者才是所有回答的网页真实地址</span><br><span class="line">         */</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">boolean</span> getRealUrl(String url)&#123;</span><br><span class="line">        	Pattern linkPattern=Pattern.<span class="keyword">compile</span>(<span class="string">"question/(.+?)/"</span>);</span><br><span class="line">        	Matcher linkMatcher=linkPattern.matcher(url);</span><br><span class="line">        	<span class="keyword">if</span>(linkMatcher.<span class="keyword">find</span>())&#123;</span><br><span class="line">        		zhihuUrl=<span class="string">"https://www.zhihu.com/question/"</span>+linkMatcher.<span class="keyword">group</span>(<span class="number">1</span>);</span><br><span class="line">        		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        	&#125;</span><br><span class="line">        	<span class="keyword">return</span> <span class="keyword">false</span>;    		</span><br><span class="line">        &#125;</span><br><span class="line">      </span><br><span class="line">        @Override  </span><br><span class="line">        <span class="keyword">public</span> String toString() &#123;  </span><br><span class="line">            <span class="keyword">return</span> <span class="string">"问题标题："</span> + question + <span class="string">"\n问题的描述："</span>+questionDescription+<span class="string">"\n链接："</span> + zhihuUrl +<span class="string">"\n评论者："</span>+answersName+ <span class="string">"\n回答："</span> + answers.<span class="keyword">size</span>() + <span class="string">"\n"</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></h2.+?></p>
+<h2 id="于Spider类中添加GetZhihu-方法"><a href="#于Spider类中添加GetZhihu-方法" class="headerlink" title="于Spider类中添加GetZhihu()方法"></a>于Spider类中添加GetZhihu()方法</h2><p>抓取知乎发现页面上所有问题的链接地址,并返回该问题链接下的Zhihu类对象，每个问题对应一个Zhihu类对象，把这些Zhihu类对象放到数组中。<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">/*</span><br><span class="line">    * 抓取知乎发现页面上所有问题的链接地址,</span><br><span class="line">    * 并返回该问题链接下的Zhihu类对象，</span><br><span class="line">    * 每个问题对应一个Zhihu类对象，把这些Zhihu类对象放到数组中</span><br><span class="line">    */</span></span><br><span class="line">    <span class="keyword">static</span> ArrayList&lt;Zhihu&gt; GetZhihu(String content) &#123;  </span><br><span class="line">        ArrayList&lt;Zhihu&gt; res=<span class="keyword">new</span> ArrayList&lt;Zhihu&gt;();</span><br><span class="line">          <span class="comment">//埋好陷阱，等着掉下去</span></span><br><span class="line">          <span class="comment">//形如&lt;h2&gt;&lt;a class="question_link" target="_blank" href="/question/46727998/answer/108099200"&gt;《守望先锋》有可能出手游吗？&lt;/a&gt;&lt;/h2&gt;</span></span><br><span class="line">          <span class="comment">//抓取 这部分，/question/46727998/answer/108099200      </span></span><br><span class="line">          Pattern urlPattern=Pattern.<span class="keyword">compile</span>(<span class="string">"question_link.+?href=\"(.+?)\"&gt;"</span>);</span><br><span class="line">          Matcher questionMatcher=urlPattern.matcher(content);</span><br><span class="line">          <span class="comment">//是否掉到陷阱里面</span></span><br><span class="line">          <span class="keyword">Boolean</span> isFind = questionMatcher.<span class="keyword">find</span>();  </span><br><span class="line">          <span class="keyword">while</span>(isFind)&#123;</span><br><span class="line">            <span class="comment">//存储刚才定义的知乎对象，数组里面都是Zhihu对象</span></span><br><span class="line">        	Zhihu zhihuTmp=<span class="keyword">new</span> Zhihu(<span class="string">"https://www.zhihu.com"</span>+questionMatcher.<span class="keyword">group</span>(<span class="number">1</span>));<span class="comment">//参数是问题的地址的完整链接</span></span><br><span class="line">        	res.add(zhihuTmp);</span><br><span class="line">        	<span class="comment">//继续查找下一个匹配对象</span></span><br><span class="line">        	isFind=questionMatcher.<span class="keyword">find</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="运行测试"><a href="#运行测试" class="headerlink" title="运行测试"></a>运行测试</h1><h2 id="Main类"><a href="#Main类" class="headerlink" title="Main类"></a>Main类</h2><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line"> * 使用爬虫来获取知乎发现页面上的内容</span><br><span class="line"> */</span></span><br><span class="line">import java.util.ArrayList;  </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> Main &#123;  </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) &#123;  </span><br><span class="line">    	<span class="comment">//知乎的发现页面</span></span><br><span class="line">    	<span class="keyword">String</span> url=<span class="string">"https://www.zhihu.com/explore"</span>;</span><br><span class="line">        <span class="comment">// 访问链接并获取页面内容  </span></span><br><span class="line">        <span class="keyword">String</span> content = Spider.ReadPage(url);  </span><br><span class="line">        <span class="comment">// 获取该页面的所有的知乎对象  </span></span><br><span class="line">        ArrayList&lt;Zhihu&gt; myZhihu = Spider.GetZhihu(content); </span><br><span class="line">        <span class="comment">// 打印结果  </span></span><br><span class="line">        System.out.<span class="built_in">println</span>(content);</span><br><span class="line">        System.out.<span class="built_in">println</span>(myZhihu);</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以明显地看到运行的速度变慢了，这是因为，比如知乎发现页面上有15个问题，那么小虫子就要爬到这15个网页摸数据，花的时间自然多了。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E6%B5%8B%E8%AF%95.jpg" alt="enter description here"><br>好了，我要开始跑了，就要跑了。。。。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E6%B5%8B%E8%AF%952.jpg" alt="enter description here"><br>还是差点什么，貌似问题的描述抓得不正确，明天继续！</p>
 
       
     </div>
