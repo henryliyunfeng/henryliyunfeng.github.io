@@ -93,7 +93,7 @@
 <meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%BA%8C%E5%BC%B9_1.jpg">
 <meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%BA%8C%E5%BC%B9_2.jpg">
 <meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%BA%8C%E5%BC%B9_3.jpg">
-<meta property="og:updated_time" content="2016-06-28T08:46:02.472Z">
+<meta property="og:updated_time" content="2016-06-28T08:53:46.365Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="知乎脚丫第二弹">
 <meta name="twitter:description" content="有了前一篇的Google首页logo链接抓取的经验，学会了怎样向网页发送GET请求、字符串存储整个网页源码、正则表达式的初级使用。在这些基础上，可以开始玩耍了。需求：知乎发现页面上有编辑推荐、今日最热和本月最日的一些问题和回答。我们要把这些问题及问题的链接，还有回答给抓取下来。">
@@ -333,7 +333,7 @@
         connection.connect();  
         // 初始化 BufferedReader输入流来读取URL的响应  
           in = new BufferedReader(new InputStreamReader(  
-             connection.getInputStream(), &quot;UTF-8&quot;));//查看了知乎使用UTF-8的编码格式，不然会出现软七八糟的东东    哦  
+             connection.getInputStream(), &quot;UTF-8&quot;));//查看了知乎使用UTF-8的编码格式，不然会出现软七八糟的东东哦  
         // 用来临时存储抓取到的每一行的数据  
         String line;  
         while ((line = in.readLine()) != null) {  
@@ -355,8 +355,7 @@
         }  
     }  
      return result;  
-
- }  
+}   
 </code></pre><p>有了网页都所有信息，就可以抓去所需要的信息。</p>
 <h1 id="到底要抓什么"><a href="#到底要抓什么" class="headerlink" title="到底要抓什么"></a>到底要抓什么</h1><p><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%BA%8C%E5%BC%B9_1.jpg" alt="比较"><br>从图中红色框中可以看出，对于论述性话题，源码是<code>post-link</code>打头，而对于提问，源码是<code>question-link</code>这两者有很好的区分。我们要抓取的就是提问“<strong>有哪些小技能是可以通过闲暇时间学到的？</strong>”和该提问的链接“<strong>/question/36267481/answer/107978739</strong>”。</p>
 <h1 id="正则表达式高阶用法"><a href="#正则表达式高阶用法" class="headerlink" title="正则表达式高阶用法"></a>正则表达式高阶用法</h1><p>这里提一笔，正则表达式的分组和捕获的用法吧（因为把我也弄逼了），来…来…给个传送门<a href="http://blog.csdn.net/lovingprince/article/details/2774819" target="_blank" rel="external">《 JAVA正则表达式高级用法(分组与捕获)》</a>里面详细讲解了原理，就知道要你们喊的。这里我也就用用，知道<code>group(0)</code>,<code>group(1)</code>的区别，<code>group(0)</code>是整个表达式，<code>group(1)</code>表示被第一个括号括起来的组——引自《java编程思想》。<br>所以说，匹配提问的正则是<code>question_link.+?&gt;(.+?)&lt;</code>，而匹配提问的地址是<code>question_link.+?href=\&quot;(.+?)\&quot;</code></p>

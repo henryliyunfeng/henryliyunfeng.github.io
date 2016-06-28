@@ -99,7 +99,7 @@
 <meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E8%AF%84%E8%AE%BAcode.jpg">
 <meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E6%B5%8B%E8%AF%95.jpg">
 <meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E6%B5%8B%E8%AF%952.jpg">
-<meta property="og:updated_time" content="2016-06-28T08:34:35.789Z">
+<meta property="og:updated_time" content="2016-06-28T08:54:48.558Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="知乎脚丫第三弹">
 <meta name="twitter:description" content="整合代码，简洁明了原谅我这个微强迫症患者,按朋友说得，这是病得治！哈哈，可我觉得还行哈，还蛮舒服的。刚开始就扯远了，为了爬虫抓取知乎发现页面上所有的问题，我写3个类，Spider类——获取网页所有信息，及特定内容；Zhihu类——封装类，存储问题标题、问题的描述、问题的链接地址、评论者名字、和所有的评论；Main类——运行整个项目的启动类。其实还写了一个UnitTest类——单元测试，测试某个方法">
@@ -326,10 +326,10 @@
 <h2 id="区分3个网页"><a href="#区分3个网页" class="headerlink" title="区分3个网页"></a>区分3个网页</h2><p>1、<strong>知乎发现页面</strong><a href="https://www.zhihu.com/explore" target="_blank" rel="external">https://www.zhihu.com/explore</a>，这个页面就是第一次爬虫走过的页面，获取所有问题的链接地址。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E8%84%9A%E4%B8%AB%E7%AC%AC%E4%B8%89%E5%BC%B9_%E7%9F%A5%E4%B9%8E%E5%8F%91%E7%8E%B0%E9%A1%B5%E9%9D%A2.jpg?imageMogr2/thumbnail/!x75p" alt="enter description here"><br>2、<strong>问题评论页面</strong><a href="https://www.zhihu.com/question/47684665/answer/108154821" target="_blank" rel="external">https://www.zhihu.com/question/47684665/answer/108154821</a>，这个页面虽然有关于问题的评论，但是并没有全部评论的信息。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E8%84%9A%E4%B8%AB%E7%AC%AC%E4%B8%89%E5%BC%B9_%E8%AF%84%E8%AE%BA%E9%A1%B5%E9%9D%A2.jpg?imageMogr2/thumbnail/!x75p" alt="enter description here"><br>3、<strong>问题所有评论的页面</strong><a href="https://www.zhihu.com/question/47684665" target="_blank" rel="external">https://www.zhihu.com/question/47684665</a>，这个页面就是终极页面，小虫子能爬到这，就算功德圆满了。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E8%84%9A%E4%B8%AB%E7%AC%AC%E4%B8%89%E5%BC%B9_%E5%85%A8%E9%83%A8%E8%AF%84%E8%AE%BA.jpg?imageMogr2/thumbnail/!x75p" alt="enter description here"></p>
 <h2 id="把重要的信息封装起来"><a href="#把重要的信息封装起来" class="headerlink" title="把重要的信息封装起来"></a>把重要的信息封装起来</h2><p>创建<code>Zhihu</code>类，给<code>Zhihu</code>的构造器一个<code>url</code>参数，这样只要判定<code>url</code>是终极页面的地址，就可以爬取所要的一切信息。怎么判定呢，交给<code>getRealUrl()</code>方法。<br>其中还有一些正则表达式书写，这就要对网页的源码分析。问题的标题可以用“zh-question-title.+?&gt;<h2.+?>.+?&gt;(.+?)&lt;”，只要抓住关键信息，这里就是<em>zh-question-title</em>。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E9%97%AE%E9%A2%98%E6%A0%87%E9%A2%98code.jpg" alt="enter description here"><br>其他的也是一样，如法炮制。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E9%97%AE%E9%A2%98%E7%9A%84%E6%8F%8F%E8%BF%B0code.jpg" alt="enter description here">问题的描述，这边要注意，有时候不止一个描述，所以正则表达式要涵盖所有的描述语句。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E8%AF%84%E8%AE%BA%E8%80%85%E5%90%8D%E5%AD%97code.jpg" alt="enter description here">评论者的名字<br>注意：对所有评论的获取不是一个正则能搞定的。暂且用<code>/answer/content.+?&lt;div.+?&gt;(.*?)&lt;/div&gt;</code>替代。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%B8%89%E5%BC%B9_%E8%AF%84%E8%AE%BAcode.jpg" alt="enter description here"><br>来…来…来，我又来贴代码了</h2.+?></p>
 <pre><code>/*
- * 设计一个Zhihu封装类，来存储所有抓取到的对象
- * 5个字段：问题标题、问题的描述、问题对应的链接、评论者的名字、所有的评论信息
- *getRealUrl(String url)方法
- */
+* 设计一个Zhihu封装类，来存储所有抓取到的对象
+* 5个字段：问题标题、问题的描述、问题对应的链接、评论者的名字、所有的评论信息
+*getRealUrl(String url)方法
+*/
 import java.util.ArrayList;
 import java.util.regex.Pattern;  
 import java.util.regex.Matcher;  
