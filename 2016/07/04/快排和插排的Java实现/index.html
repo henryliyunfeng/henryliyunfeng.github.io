@@ -86,24 +86,21 @@
 
 
 
-<meta name="description" content="《大话数据结构》是以C语言编著，对于我主攻java来说，脑子要转点弯。后来有捡着《数据结构与算法分析——Java语言描述》的有关查找排序的章节看，觉得此书是宝典，可是我看不懂。。。术语太尼玛多了。所以很有必要整理一下排序算法，排序算法有很多，就书中介绍的就有，冒泡、选择、插入、归并、希尔（归并的加强版）、快排还有堆排序等等。这里主要是快速排序和插入排序的Java实现。
-快速排序实现据说能手写代码的">
+<meta name="description">
 <meta property="og:type" content="article">
 <meta property="og:title" content="快排和插排的Java实现">
 <meta property="og:url" content="http://henryliyunfeng.github.io/2016/07/04/快排和插排的Java实现/index.html">
 <meta property="og:site_name" content="Henry's Home">
-<meta property="og:description" content="《大话数据结构》是以C语言编著，对于我主攻java来说，脑子要转点弯。后来有捡着《数据结构与算法分析——Java语言描述》的有关查找排序的章节看，觉得此书是宝典，可是我看不懂。。。术语太尼玛多了。所以很有必要整理一下排序算法，排序算法有很多，就书中介绍的就有，冒泡、选择、插入、归并、希尔（归并的加强版）、快排还有堆排序等等。这里主要是快速排序和插入排序的Java实现。
-快速排序实现据说能手写代码的">
+<meta property="og:description">
 <meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/%E6%8E%92%E5%BA%8F1.jpg">
 <meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/%E6%8E%92%E5%BA%8F2.gif">
 <meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/%E6%8E%92%E5%BA%8F5.png">
 <meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/%E6%8E%92%E5%BA%8F3.gif">
 <meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/%E6%8E%92%E5%BA%8F4.png">
-<meta property="og:updated_time" content="2016-07-04T12:23:08.675Z">
+<meta property="og:updated_time" content="2016-07-04T12:24:14.526Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="快排和插排的Java实现">
-<meta name="twitter:description" content="《大话数据结构》是以C语言编著，对于我主攻java来说，脑子要转点弯。后来有捡着《数据结构与算法分析——Java语言描述》的有关查找排序的章节看，觉得此书是宝典，可是我看不懂。。。术语太尼玛多了。所以很有必要整理一下排序算法，排序算法有很多，就书中介绍的就有，冒泡、选择、插入、归并、希尔（归并的加强版）、快排还有堆排序等等。这里主要是快速排序和插入排序的Java实现。
-快速排序实现据说能手写代码的">
+<meta name="twitter:description">
 <meta name="twitter:image" content="http://7xvohu.com1.z0.glb.clouddn.com/%E6%8E%92%E5%BA%8F1.jpg">
 
 
@@ -332,7 +329,7 @@
       
 
       
-        <p><img src="http://7xvohu.com1.z0.glb.clouddn.com/%E6%8E%92%E5%BA%8F1.jpg" alt="这图吊炸天"><br>《大话数据结构》是以C语言编著，对于我主攻java来说，脑子要转点弯。后来有捡着《数据结构与算法分析——Java语言描述》的有关查找排序的章节看，觉得此书是宝典，可是我看不懂。。。术语太尼玛多了。所以很有必要整理一下排序算法，排序算法有很多，就书中介绍的就有，冒泡、选择、插入、归并、希尔（归并的加强版）、快排还有堆排序等等。<br>这里主要是快速排序和插入排序的Java实现。</p>
+        <p><img src="http://7xvohu.com1.z0.glb.clouddn.com/%E6%8E%92%E5%BA%8F1.jpg" alt="这图吊炸天"><br><a id="more"></a><br>《大话数据结构》是以C语言编著，对于我主攻java来说，脑子要转点弯。后来有捡着《数据结构与算法分析——Java语言描述》的有关查找排序的章节看，觉得此书是宝典，可是我看不懂。。。术语太尼玛多了。所以很有必要整理一下排序算法，排序算法有很多，就书中介绍的就有，冒泡、选择、插入、归并、希尔（归并的加强版）、快排还有堆排序等等。<br>这里主要是快速排序和插入排序的Java实现。</p>
 <h1 id="快速排序实现"><a href="#快速排序实现" class="headerlink" title="快速排序实现"></a>快速排序实现</h1><p>据说能手写代码的，年薪都很客观哦。。。快速排序一种分治的递归算法。它首先把一个大的数组分成两个小的子数组：较小的数的数组和较大的数的数组。再对这子数组做递归处理。</p>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><ol>
 <li>从数组中任意选择一个元素，称为枢纽元（pivot）。虽然无论选择哪个元素作为pivot都可以完成排序，但是有些选择显然优于其他选择。将第一个元素作为pivot是一种错误的做法。安全的做法是随机选取pivot。最好的做法是选择数组的中值：一般的做法是使用左端、右端和中心位置上的三个元素的中值作为pivot。</li>
