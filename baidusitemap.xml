@@ -4,6 +4,21 @@
 
     
   <url>
+    <loc>http://henryliyunfeng.github.io/2016/06/21/hello-world/</loc>
+    <lastmod>2016-07-05T12:08:00.071Z</lastmod>
+    <data>
+        <display>
+        <title>Hello World</title>
+        <pubTime>2016-06-21T00:01:48.062Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://henryliyunfeng.github.io/2016/07/04/%E5%BF%AB%E6%8E%92%E5%92%8C%E6%8F%92%E6%8E%92%E7%9A%84Java%E5%AE%9E%E7%8E%B0/</loc>
     <lastmod>2016-07-04T12:24:14.526Z</lastmod>
     <data>
@@ -162,21 +177,6 @@
              
               <breadCrumb title="Hexo" url="http://henryliyunfeng.github.io/categories/Hexo/"/>
           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://henryliyunfeng.github.io/2016/06/21/hello-world/</loc>
-    <lastmod>2016-06-25T05:07:49.404Z</lastmod>
-    <data>
-        <display>
-        <title>Hello World</title>
-        <pubTime>2016-06-21T00:01:48.062Z</pubTime>
-        
-         
-           
         </display>
     </data>
     </url>
