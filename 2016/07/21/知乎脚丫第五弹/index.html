@@ -1,0 +1,821 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="JH2VF1pD6Gk01caFiTXuYGJ_9ukM1Y_q_iUUij7e6Eg" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="java,网络爬虫," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知乎脚丫第五弹">
+<meta property="og:url" content="http://henryliyunfeng.github.io/2016/07/21/知乎脚丫第五弹/index.html">
+<meta property="og:site_name" content="Yunfeng's Home">
+<meta property="og:description">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%BA%94%E5%BC%B94.jpg">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%AC%AC%E4%BA%94%E5%BC%B91.jpg">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%AC%AC%E4%BA%94%E5%BC%B92.jpg">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%AC%AC%E4%BA%94%E5%BC%B93.jpg">
+<meta property="og:updated_time" content="2016-07-22T02:36:51.996Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="知乎脚丫第五弹">
+<meta name="twitter:description">
+<meta name="twitter:image" content="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%BA%94%E5%BC%B94.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://henryliyunfeng.github.io/2016/07/21/知乎脚丫第五弹/"/>
+
+  <title> 知乎脚丫第五弹 | Yunfeng's Home </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Yunfeng's Home</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">一步一脚印</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                知乎脚丫第五弹
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-21T16:50:47+08:00" content="2016-07-21">
+              2016-07-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/爬虫/" itemprop="url" rel="index">
+                    <span itemprop="name">爬虫</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/21/知乎脚丫第五弹/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/21/知乎脚丫第五弹/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/07/21/知乎脚丫第五弹/" class="leancloud_visitors" data-flag-title="知乎脚丫第五弹">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%9F%A5%E4%B9%8E%E7%AC%AC%E4%BA%94%E5%BC%B94.jpg" alt="enter description here"><br><a id="more"></a><br>虽然使用Java自带的URLConnection能处理一些基本的连接、下载、关闭等功能，但是很多的高级功能比如html伪装浏览器、标记清除。所以笔者采用——<br>HttpClient 4.5.2——模拟http请求；<a href="https://hc.apache.org/downloads.cgi" target="_blank" rel="external">下载点我、点我、点我</a><br>Chrome(F12 开发者模式)——目标页面结构分析；<br>Jsoup1.9.2——HTML解析；<a href="https://jsoup.org/download" target="_blank" rel="external">下载点我、点我、点我</a><br>来重新爬取<a href="https://www.zhihu.com/explore" target="_blank" rel="external">知乎-发现</a>页面上的提问信息。形如：<br>图中红色区域，就是提问信息，也就是带问号的。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%AC%AC%E4%BA%94%E5%BC%B91.jpg" alt="enter description here"></p>
+<h1 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h1><p>“知乎脚丫”爬虫的基本思路是：主线程模拟浏览器GET请求到种子URL -&gt; 将网页中所有提问信息的链接地址取回来 -&gt; 开启爬虫线程对获取到的叶子URL再次GET请求-&gt;对页面的内容进行解析、获取目标数据保存到相应的存储(可以是数据库或者文件)。<br>当然啦，以上是建立在友好的环境下，也就是说爬取过程无需模拟登录、被爬的网站比较善良不会做一些“反爬”的工作的基础上，如果真滴被“反爬”了，可以动态切换帐号/IP<br>访问时间dealy等。<br>所以程序中，笔者也留下了这两部分工作，待之后get新技能。</p>
+<h1 id="程序架构"><a href="#程序架构" class="headerlink" title="程序架构"></a>程序架构</h1><p><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%AC%AC%E4%BA%94%E5%BC%B92.jpg" alt="enter description here"><br>模拟登陆：这部分没有做，比较复杂，之后会继续做；<br>初始化队列：存放所有待爬取的叶子URL；<br>Fetcher: 爬虫模拟浏览器发出GET URL请求，下载页面；<br>Handler:对Fetcher下载的页面进行初步处理，如判断该页面的返回状态码是否正确、页面内容是否为反爬信息等，从而保证传到Parser进行解析的页面是正确的;<br>Parser：对Fetcher下载的页面内容进行解析，获取叶子链接，获取目标数据；<br>Store: 将Parser解析出的目标数据存入本地存储，可以是MySQL传统数据库，也可以文件存储</p>
+<h1 id="程序部分代码"><a href="#程序部分代码" class="headerlink" title="程序部分代码"></a>程序部分代码</h1><p>首先要实现两个类似于队列的数据结构，用于放置待爬取URL和已爬取的URL，这个比较easy就不上代码了。</p>
+<h2 id="Fetcher模块"><a href="#Fetcher模块" class="headerlink" title="Fetcher模块"></a>Fetcher模块</h2><p>模拟浏览器GET HTTP请求<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="meta-keyword">import</span> java.io.IOException;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> java.util.logging.Logger;</span></span><br><span class="line"></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> org.apache.http.HttpEntity;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> org.apache.http.HttpResponse;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> org.apache.http.StatusLine;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> org.apache.http.client.ClientProtocolException;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> org.apache.http.client.HttpResponseException;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> org.apache.http.client.ResponseHandler;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> org.apache.http.client.methods.HttpGet;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> org.apache.http.impl.client.CloseableHttpClient;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> org.apache.http.impl.client.HttpClients;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> org.apache.http.util.EntityUtils;</span></span><br><span class="line"></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> comSpider.model.FetchedPage;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> comSpider.queue.UrlQueue;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PageFetcher</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger Log = Logger.getLogger(PageFetcher.class.getName());</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 创建HttpClient实例，并初始化连接参数</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> CloseableHttpClient client=HttpClients.createDefault();</span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 主动关闭HttpClient连接</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> close()&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			client.close();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 根据url爬取网页内容</span><br><span class="line">	 * @param url</span><br><span class="line">	 * @return FetchedPage</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="keyword">public</span>  <span class="keyword">static</span> FetchedPage getContentFromUrl(String url)&#123;</span><br><span class="line">		FetchedPage fetchedPage=<span class="literal">null</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 创建Get请求，并设置Header</span></span><br><span class="line">		HttpGet getHttp = <span class="keyword">new</span> HttpGet(url);	</span><br><span class="line">		System.out.println(getHttp.getRequestLine());</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//创建响应处理器ResponseHandler,一定要重写handleResponse(HttpResponse response)方法</span></span><br><span class="line">		ResponseHandler&lt;FetchedPage&gt; responseHandler = <span class="keyword">new</span> ResponseHandler&lt;FetchedPage&gt;()&#123;</span><br><span class="line"></span><br><span class="line">			@Override</span><br><span class="line">			<span class="keyword">public</span> FetchedPage handleResponse(<span class="keyword">final</span> HttpResponse response) throws ClientProtocolException, IOException &#123;</span><br><span class="line">				<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">				StatusLine statusLine=response.getStatusLine();<span class="comment">//响应的状态行</span></span><br><span class="line">				int statusCode=statusLine.getStatusCode();<span class="comment">//状态码</span></span><br><span class="line">				<span class="comment">//System.out.println(statusCode);</span></span><br><span class="line">				HttpEntity entity=response.getEntity();<span class="comment">//响应的实体</span></span><br><span class="line">				<span class="comment">//如果状态码&gt;=300,抛出响应异常</span></span><br><span class="line">				<span class="keyword">if</span>(statusCode&gt;=<span class="number">300</span>)&#123;</span><br><span class="line">					<span class="keyword">throw</span> <span class="keyword">new</span> HttpResponseException(</span><br><span class="line">		                    statusCode,</span><br><span class="line">		                    statusLine.getReasonPhrase());</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="comment">//如果实体为空，抛出异常</span></span><br><span class="line">		        <span class="keyword">if</span> (entity == <span class="literal">null</span>) &#123;</span><br><span class="line">		            <span class="keyword">throw</span> <span class="keyword">new</span> ClientProtocolException(<span class="string">"Response contains no content"</span>);</span><br><span class="line">		        &#125;</span><br><span class="line">		        <span class="comment">// 转化为文本信息, 设置爬取网页的字符集，防止乱码</span></span><br><span class="line">		        String content = EntityUtils.toString(entity, <span class="string">"UTF-8"</span>);</span><br><span class="line">		        <span class="comment">//System.out.println(content);</span></span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">new</span> FetchedPage(url,content,statusCode);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//建立连接，并响应</span></span><br><span class="line">		<span class="keyword">try</span>&#123;</span><br><span class="line">			fetchedPage=client.execute(getHttp, responseHandler);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">			</span><br><span class="line">			<span class="comment">//因请求超时等问题产生的异常，将URL放回待抓取队列，重新爬取</span></span><br><span class="line">			Log.info(<span class="string">"&gt;&gt; Put back url: "</span> + url);</span><br><span class="line">			UrlQueue.addFirstElement(url);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//return FetchedPage(url, content, statusCode);</span></span><br><span class="line">		<span class="keyword">return</span> fetchedPage;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中请求返回的HttpEntity到底是什么？笔者打印出来如下：</p>
+<pre><code>HttpResponseProxy{HTTP/1.1 200 OK [Server: Qnginx/1.1.2, Date: Thu, 21 Jul 2016 12:11:54 GMT, Content-Type: text/html; charset=UTF-8, Connection: keep-alive, Last-Modified: Thu, 21 Jul 2016 12:03:51 GMT, X-Za-Response-Id: dc09fd95f941415c8bea6a277914da97, Content-Security-Policy: default-src *; img-src * data:; frame-src &apos;self&apos; *.zhihu.com getpocket.com note.youdao.com; script-src &apos;self&apos; *.zhihu.com *.google-analytics.com zhstatic.zhihu.com res.wx.qq.com &apos;unsafe-eval&apos;; style-src &apos;self&apos; *.zhihu.com &apos;unsafe-inline&apos;, Pragma: no-cache, X-Frame-Options: DENY, X-Cache-Status: HIT, Accept-Ranges: bytes, X-Req-ID: 29223CA15790BC0D, Vary: Accept-Encoding, X-NWS-LOG-UUID: 44868d3b-2c6d-47e9-aaaa-59f0a09f90f7] org.apache.http.client.entity.DecompressingEntity@dbd940d}
+</code></pre><p>认识几个常用的字段，<code>HTTP/1.1</code>-http协议；<code>200</code>-返回的状态码;<code>OK</code>-代表连接成功；<code>[Server:.....]</code>-连接的服务器相关信息；<code>org.apache.http.client.entity.DecompressingEntity@dbd940d</code>-这里面才是网页的真实内容，不过需要转化成文本信息。</p>
+<h2 id="Handler模块"><a href="#Handler模块" class="headerlink" title="Handler模块"></a>Handler模块</h2><p>对“反爬”和连接不成功的的解决处理，先这么着。<br>HTTP状态码总结——</p>
+<blockquote>
+<p><strong>典型的错误包含”404”(页面无法找到)，”403”(请求禁止)，和”401”(带验证请求)。</strong><br>HTTP状态码表示HTTP协议所返回的响应的状态。<br>比如客户端向服务器发送请求，如果成功地获得请求的资源，则返回的状态码为200，表示响应成功。 如果请求的资源不存在， 则通常返回404错误。<br>HTTP状态码通常分为5种类型，分别以1～5五个数字开头，由3位整数组成：<br>200：请求成功      处理方式：获得响应的内容，进行处理<br>201：请求完成，结果是创建了新资源。新创建资源的URI可在响应的实体中得到    处理方式：爬虫中不会遇到<br>202：请求被接受，但处理尚未完成    处理方式：阻塞等待  204：服务器端已经实现了请求，但是没有返回新的信<br>息。如果客户是用户代理，则无须为此更新自身的文档视图。    处理方式：丢弃 300：该状态码不被HTTP/1.0的应用程序直接使用，<br>只是作为3XX类型回应的默认解释。存在多个可用的被请求资源。    处理方式：若程序中能够处理，则进行进一步处理，如果程序中不能处理，则丢弃<br>301：请求到的资源都会分配一个永久的URL，这样就可以在将来通过该URL来访问此资源    处理方式：重定向到分配的URL<br>302：请求到的资源在一个不同的URL处临时保存     处理方式：重定向到临时的URL  304 请求的资源未更新     处理方式：丢弃<br>400 非法请求     处理方式：丢弃  401 未授权     处理方式：丢弃  403 禁止     处理方式：丢弃  404<br>没有找到     处理方式：丢弃  5XX 回应代码以“5”开头的状态码表示服务器端发现自己出现错误，不能继续执行请求    处理方式：丢弃</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> comSpider.model.FetchedPage;</span><br><span class="line"><span class="keyword">import</span> comSpider.queue.UrlQueue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ContentHandler</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">check</span><span class="params">(FetchedPage fetchedPage)</span></span>&#123;</span><br><span class="line">		<span class="comment">// 如果抓取的页面包含反爬取内容，则将当前URL放入待爬取队列，以便重新爬取</span></span><br><span class="line">		<span class="keyword">if</span>(isAntiScratch(fetchedPage))&#123;</span><br><span class="line">			UrlQueue.addFirstElement(fetchedPage.getUrl());</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//通过状态码判断该网页回应是否正确</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isStatusValid</span><span class="params">(<span class="keyword">int</span> statusCode)</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(statusCode &gt;= <span class="number">200</span> &amp;&amp; statusCode &lt; <span class="number">400</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//是否包含反爬内容</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isAntiScratch</span><span class="params">(FetchedPage fetchedPage)</span></span>&#123;</span><br><span class="line">		<span class="comment">// 403 forbidden</span></span><br><span class="line">		<span class="keyword">if</span>((!isStatusValid(fetchedPage.getStatusCode())) &amp;&amp; fetchedPage.getStatusCode() == <span class="number">403</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 页面内容包含的反爬取内容</span></span><br><span class="line">		<span class="keyword">if</span>(fetchedPage.getContent().contains(<span class="string">"&lt;div&gt;禁止访问&lt;/div&gt;"</span>))&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Parser模块"><a href="#Parser模块" class="headerlink" title="Parser模块"></a>Parser模块</h2><p>这个解析模块有两个函数，parseLinks()用于解析种子页面获得所有的叶子链接地址，parse()用于解析叶子页面获得目标数据。<br>Note:之前也有提到过提问的回答地址必须是绝对地址。<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="meta-keyword">import</span> org.jsoup.Jsoup;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> org.jsoup.nodes.Document;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> org.jsoup.nodes.Element;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> org.jsoup.select.Elements;</span></span><br><span class="line"></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> comSpider.model.FetchedPage;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> comSpider.queue.UrlQueue;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> comSpider.queue.VisitedUrlQueue;</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ContentParser</span> </span>&#123;</span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 解析提问页面内容，并把目标数据封装成ZhihuQuestions</span><br><span class="line">	 * @param questionPage</span><br><span class="line">	 * @return</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="keyword">public</span> synchronized ZhihuQuestions parse(FetchedPage questionPage)&#123;</span><br><span class="line">		ZhihuQuestions targetZhihu =<span class="literal">null</span>;</span><br><span class="line">		<span class="comment">//抓取每一个提问链接内的目标数据，封装成ZhihuQuestions类</span></span><br><span class="line">		targetZhihu=<span class="keyword">new</span> ZhihuQuestions(questionPage.getUrl());</span><br><span class="line">		<span class="comment">// 把已经爬过的URL放入已爬取队列</span></span><br><span class="line">		VisitedUrlQueue.addElement(questionPage.getUrl());</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 根据当前页面和URL获取下一步爬取的URLs</span></span><br><span class="line">		<span class="comment">// TODO</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> targetZhihu; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 解析出知乎发现首页上的所有提问的链接地址，加入待爬取队列UrlQueue容器里</span><br><span class="line">	 * @param fetchedPage</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> parseLinks(FetchedPage fetchedPage)&#123;</span><br><span class="line">		<span class="comment">//ArrayList&lt;String&gt; urlArr=new ArrayList&lt;String&gt;();</span></span><br><span class="line">		<span class="comment">//创建一个干净的html文档</span></span><br><span class="line">		Document doc = Jsoup.parse(fetchedPage.getContent());</span><br><span class="line">		<span class="comment">//class等于question_link的a标签的集合,也就是提问的相对地址</span></span><br><span class="line">		Elements links = doc.select(<span class="string">"a.question_link"</span>);</span><br><span class="line">		<span class="keyword">for</span>(Element link:links)&#123;</span><br><span class="line">			String linkHref = link.attr(<span class="string">"href"</span>);<span class="comment">//获取链接的相对路径</span></span><br><span class="line">			String nextLink=<span class="string">"https://www.zhihu.com"</span>+linkHref;<span class="comment">//绝对路径</span></span><br><span class="line">			UrlQueue.addElement(nextLink);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Store模块"><a href="#Store模块" class="headerlink" title="Store模块"></a>Store模块</h2><p>把爬取到的目标数据写入文件中。<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.<span class="keyword">File</span>;</span><br><span class="line"><span class="keyword">import</span> java.io.FileWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> comSpider.parser.ZhihuQuestions;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> DataStorage &#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">File</span> dir;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">File</span> <span class="keyword">file</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> isCreatedSucceed=<span class="keyword">false</span>;</span><br><span class="line">	FileWriter fw;</span><br><span class="line">	<span class="keyword">public</span> DataStorage()&#123;</span><br><span class="line">		createDirFile();</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			fw=<span class="keyword">new</span> FileWriter(<span class="keyword">file</span>,<span class="keyword">true</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 存储所有提问到本地文件out/questions.txt</span><br><span class="line">	 * @param data</span><br><span class="line">	 * @return</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> store(ZhihuQuestions data)&#123;</span><br><span class="line">		<span class="comment">// store to DB</span></span><br><span class="line">		<span class="comment">// TODO</span></span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//store to File</span></span><br><span class="line">		<span class="comment">//创建待存储文本</span></span><br><span class="line">		<span class="comment">//createDirFile();</span></span><br><span class="line">		<span class="comment">//写数据到文件中</span></span><br><span class="line">		<span class="keyword">try</span>&#123;</span><br><span class="line">			<span class="comment">//多个线程各自开启一个FileWriter写入同一个文件,会产生串行现象</span></span><br><span class="line">			BufferedWriter writer=<span class="keyword">new</span> BufferedWriter(fw);<span class="comment">//在构造FileWriter时，第二个参数设置为true</span></span><br><span class="line">			writer.<span class="keyword">write</span>(data.toString());				</span><br><span class="line">			writer.flush();</span><br><span class="line">			<span class="comment">//writer.close();</span></span><br><span class="line">			<span class="comment">//System.out.println("had stored");</span></span><br><span class="line">		&#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 创建一个out/questions.txt文件</span><br><span class="line">	 * @param </span><br><span class="line">	 * @return</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">void</span> createDirFile()&#123;	</span><br><span class="line">		<span class="keyword">try</span>&#123;</span><br><span class="line">			<span class="comment">//只创建一次文件,没有则创建，有则不创建</span></span><br><span class="line">			<span class="keyword">if</span>(!isCreatedSucceed)&#123;</span><br><span class="line">				<span class="comment">//创建文件夹</span></span><br><span class="line">				dir=<span class="keyword">new</span> <span class="keyword">File</span>(<span class="string">"out"</span>);</span><br><span class="line">				dir.mkdirs();</span><br><span class="line">				<span class="comment">//再创建文件</span></span><br><span class="line">				<span class="keyword">file</span>=<span class="keyword">new</span> <span class="keyword">File</span>(<span class="string">"out/questions.txt"</span>);<span class="comment">//创建抽象路径名</span></span><br><span class="line">				<span class="keyword">file</span>.createNewFile();</span><br><span class="line">				isCreatedSucceed=<span class="keyword">true</span>;<span class="comment">//已经创建文件</span></span><br><span class="line">				System.out.<span class="keyword">println</span>(<span class="string">"create \"out/question.txt\" file succeed."</span> );</span><br><span class="line">			&#125;</span><br><span class="line"><span class="comment">//			else</span></span><br><span class="line"><span class="comment">//				System.out.println("create \"out/question.txt\" file failed." );</span></span><br><span class="line"></span><br><span class="line">		&#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h1><p>整个项目已经放到github。<br><img src="http://7xvohu.com1.z0.glb.clouddn.com/img/zhihu%E7%AC%AC%E4%BA%94%E5%BC%B93.jpg" alt="enter description here"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag">#java</a>
+          
+            <a href="/tags/网络爬虫/" rel="tag">#网络爬虫</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/15/网易2016研发工程师编程题详解/" rel="next" title="网易2016研发工程师编程题详解">
+                <i class="fa fa-chevron-left"></i> 网易2016研发工程师编程题详解
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/07/21/知乎脚丫第五弹/"
+     data-title="知乎脚丫第五弹"
+     data-content=""
+     data-url="http://henryliyunfeng.github.io/2016/07/21/知乎脚丫第五弹/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/21/知乎脚丫第五弹/"
+           data-title="知乎脚丫第五弹" data-url="http://henryliyunfeng.github.io/2016/07/21/知乎脚丫第五弹/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xvohu.com1.z0.glb.clouddn.com/%E5%A4%B4%E5%83%8F.jpg"
+               alt="Yunfeng" />
+          <p class="site-author-name" itemprop="name">Yunfeng</p>
+          <p class="site-description motion-element" itemprop="description">程序猿，“四有青年”，未来昏析师</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/henryliyunfeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2953020495" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/li-xiao-yun-41-61" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本思路"><span class="nav-number">1.</span> <span class="nav-text">基本思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#程序架构"><span class="nav-number">2.</span> <span class="nav-text">程序架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#程序部分代码"><span class="nav-number">3.</span> <span class="nav-text">程序部分代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Fetcher模块"><span class="nav-number">3.1.</span> <span class="nav-text">Fetcher模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Handler模块"><span class="nav-number">3.2.</span> <span class="nav-text">Handler模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parser模块"><span class="nav-number">3.3.</span> <span class="nav-text">Parser模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Store模块"><span class="nav-number">3.4.</span> <span class="nav-text">Store模块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结果"><span class="nav-number">4.</span> <span class="nav-text">结果</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yunfeng</span>
+  
+  <span id="busuanzi_container_site_pv">
+    &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;本站总访问量<span id="busuanzi_value_site_pv"></span>
+</span>
+<span id="busuanzi_container_site_uv">
+  &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;茫茫人海，您是第<span id="busuanzi_value_site_uv"></span>个来到的小伙伴
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"henryliyunfeng"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("TiFFJLE8TDLzKGAXQ2PFLdzr-gzGzoHsz", "ceYX24I4vU17FYJgnEk485JN");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
