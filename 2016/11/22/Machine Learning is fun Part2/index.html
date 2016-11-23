@@ -1,0 +1,1082 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="JH2VF1pD6Gk01caFiTXuYGJ_9ukM1Y_q_iUUij7e6Eg" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="机器学习," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="英文出处：https://medium.com/@ageitgey/machine-learning-is-fun-part-2-a26a10b68df3#.8arwrabzl此篇是系列文章machine learning is fun的第二部分，讲解了如何找到特征，用递归神经网络生成”超级玛丽游戏”和生成海明威风格的文本。
+
+在第一章，我们说，机器学习是使用泛型算法来告诉你一些关于数据的有趣的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Machine Learning is fun(Part 2)译文">
+<meta property="og:url" content="http://henryliyunfeng.github.io/2016/11/22/Machine Learning is fun Part2/index.html">
+<meta property="og:site_name" content="Yunfeng's Home">
+<meta property="og:description" content="英文出处：https://medium.com/@ageitgey/machine-learning-is-fun-part-2-a26a10b68df3#.8arwrabzl此篇是系列文章machine learning is fun的第二部分，讲解了如何找到特征，用递归神经网络生成”超级玛丽游戏”和生成海明威风格的文本。
+
+在第一章，我们说，机器学习是使用泛型算法来告诉你一些关于数据的有趣的">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-1.gif">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-2.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-3.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-4.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-5.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-6.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-7.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-8.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-9.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-10.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-11.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-12.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-13.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-14.gif">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/Mlp2-15.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-16.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-17.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-18.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/Mlp2-19.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-20.jpeg">
+<meta property="og:updated_time" content="2016-11-23T09:30:22.816Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Machine Learning is fun(Part 2)译文">
+<meta name="twitter:description" content="英文出处：https://medium.com/@ageitgey/machine-learning-is-fun-part-2-a26a10b68df3#.8arwrabzl此篇是系列文章machine learning is fun的第二部分，讲解了如何找到特征，用递归神经网络生成”超级玛丽游戏”和生成海明威风格的文本。
+
+在第一章，我们说，机器学习是使用泛型算法来告诉你一些关于数据的有趣的">
+<meta name="twitter:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-1.gif">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://henryliyunfeng.github.io/2016/11/22/Machine Learning is fun Part2/"/>
+
+  <title> Machine Learning is fun(Part 2)译文 | Yunfeng's Home </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Yunfeng's Home</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">一步一脚印</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br />
+            
+            链接
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-douban">
+          <a href="/douban" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            读书
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Machine Learning is fun(Part 2)译文
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-22T09:36:01+08:00" content="2016-11-22">
+              2016-11-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/22/Machine Learning is fun Part2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/22/Machine Learning is fun Part2/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/11/22/Machine Learning is fun Part2/" class="leancloud_visitors" data-flag-title="Machine Learning is fun(Part 2)译文">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>英文出处：<a href="https://medium.com/@ageitgey/machine-learning-is-fun-part-2-a26a10b68df3#.8arwrabzl" target="_blank" rel="external">https://medium.com/@ageitgey/machine-learning-is-fun-part-2-a26a10b68df3#.8arwrabzl</a><br>此篇是系列文章machine learning is fun的第二部分，讲解了如何找到特征，用递归神经网络生成”超级玛丽游戏”和生成海明威风格的文本。</p>
+</blockquote>
+<p>在第一章，我们说，机器学习是使用泛型算法来告诉你一些关于数据的有趣的事情，而不需要写任何代码具体到你正在解决的问题。（如果你还没有阅读过part 1，立马去看！）</p>
+<p>这一次，我们将看到一种泛型算法去做一些非常酷的事情——创建视频游戏关卡，这看起来像是人类做的。我们将建立一个神经网络，用现有的超级马里奥关卡训练它，并且观察新的游戏关卡产生。</p>
+<ul>
+<li><blockquote>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-1.gif" alt="One of the levels our algorithm will generate"></p>
+</blockquote>
+</li>
+</ul>
+<p>就像第一章，本指南是面向任何对机器学习充满好奇但又不知如何入手的人。目标是让更多的人收益，这意味着文章有很多的概括并且跳过了很多细节。但是谁在乎呢？如果这让人对机器学习更感兴趣了，文章目的也就达到了。<br><a id="more"></a></p>
+<h1 id="Making-Smarter-Guesses"><a href="#Making-Smarter-Guesses" class="headerlink" title="Making Smarter Guesses"></a>Making Smarter Guesses</h1><p>回到第一章，我们根据房子的属性，创建了一个简单的算法用来估价一个房子的价值。给出一个房子的数据就像这样：</p>
+<ul>
+<li><blockquote>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-2.png" alt="enter description here"></p>
+</blockquote>
+</li>
+</ul>
+<p>我们完成了这个简单的估价函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def estimate_house_sales_price(num_of_bedrooms, sqft, neighborhood):</span><br><span class="line"> price = 0</span><br><span class="line"># a little pinch of this</span><br><span class="line"> price += num_of_bedrooms * 0.123</span><br><span class="line"># and a big pinch of that</span><br><span class="line"> price += sqft * 0.41</span><br><span class="line"># maybe a handful of this</span><br><span class="line"> price += neighborhood * 0.57</span><br><span class="line">return price</span><br></pre></td></tr></table></figure></p>
+<p>换句话说，我们估计房子的价格是通过乘以该房子每一个属性的权值，然后我们把这些数字加起来，就得到了房子的价格。</p>
+<p>我们用一个简单的图表来表达相同的功能，而不是用代码：</p>
+<ul>
+<li><blockquote>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-3.png" alt="The arrows represent the weights in our function."></p>
+</blockquote>
+</li>
+</ul>
+<p>然而，该算法仅能解决简单的问题，比如结果与输入有线性关系的。如果房价背后的真想不是如此简单的？例如，街区对大户型和小户型房子影响很大，但是对中型房子就没那么重要。我们怎样才能在我们的模型中捕捉到那种复杂的细节呢？</p>
+<p>为了更加聪明，我们可以用不同的权值运行这个算法多次，来捕捉不同的边界情况：</p>
+<ul>
+<li><blockquote>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-4.png" alt="Let’s try solving the problem four different ways"></p>
+</blockquote>
+</li>
+</ul>
+<p>现在我们有四组不同的估价。让我们把这4个估价合并成一个最终的估价。我们再次通过同样的算法运行它们(但是使用另外一组权值)！</p>
+<ul>
+<li><blockquote>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-5.png" alt="enter description here"></p>
+</blockquote>
+</li>
+</ul>
+<p>我们新的Super Answer融合了此前4个不同的估价。正因为如此，新的Answer比我们在单个简单的模型下捕获得更多。</p>
+<h1 id="What-is-a-Neural-Network"><a href="#What-is-a-Neural-Network" class="headerlink" title="What is a Neural Network?"></a>What is a Neural Network?</h1><p>让我们把4次尝试猜价合并到一张大图里面：</p>
+<ul>
+<li><blockquote>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-6.png" alt="enter description here"></p>
+</blockquote>
+</li>
+</ul>
+<p>这就是一个神经网络！每个节点都知道怎样在一组输入中，对它们赋予权重，并计算出一个输出值。把所有节点连接起来，我们就可以模拟复杂的功能。</p>
+<p>为了本文的简介，我跳过了很多（包括特征提取和激活函数），但是最重要的部分是这些基础思想：</p>
+<ul>
+<li>我们做了一个简单的估价函数，以一组输入和乘以它们的权重得到一个输出。我们称这个简单函数为一个神经元。</li>
+<li>通过许多简单的神经元连接在一起，我们可以函数模型化，这些过于复杂的函数都是由单个神经元建模而来。</li>
+</ul>
+<p>这像极了乐高！我们不能用单个乐高块来建立模型，但是如果我们用足够多的乐高块组合在一起，我们就可以建立任何东西的模型:</p>
+<ul>
+<li><blockquote>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-7.png" alt="A grim preview of our plastic animal future? Only time can tell…"></p>
+</blockquote>
+</li>
+</ul>
+<h1 id="Give-our-Neural-Network-a-Memory"><a href="#Give-our-Neural-Network-a-Memory" class="headerlink" title="Give our Neural Network a Memory"></a>Give our Neural Network a Memory</h1><p>当你给它相同的输入时，我们所看到的神经网络总是返回相同的答案。它没有记忆。从编程角度来看，神经网络是无状态算法。</p>
+<p>在许多场景（例如估计房屋价格），这正式你想要的。但是这种模型不能做的一件事，是应对数据模式的变化随着时间的推移。</p>
+<p>想像一下，我递给你一个键盘，并要你写一个故事。但是在你写之前，我的任务是猜测一下你最优可能敲下的第一个字母。那我应该猜哪个字母呢？</p>
+<p>我可以运用我的英语知识来增加我猜测正确字母的几率。比如，你可能会输入一个单词开始时常见的字母。如果我看过你曾经写过的故事，那么基于你经常在故事开头使用的单词，我可以经一步缩小范围。一旦我拥有了全部数据，我可以建立一个神经网络模型来预测你即将开始的字母是什么。</p>
+<p>我们的模型可能看起来像这样：</p>
+<ul>
+<li><blockquote>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-8.png" alt="enter description here"></p>
+</blockquote>
+</li>
+</ul>
+<p>让我们把问题升级的更难一点。我需要猜测下一个字母在你故事中任何地方。这是一个更有趣的问题。</p>
+<p>让我们用Ernest Hemingway’s <em>The Sun Also Rises</em> 的前几个单词为例：</p>
+<blockquote>
+<p><em>Robert Cohn was once middleweight boxi</em></p>
+</blockquote>
+<p>下一个字母是什么呢？</p>
+<p>你可能猜是’n’-这个单词可能是boxing.我们知道这是基于我们已经在句子中看到的单词和我们英语的先验知识。同时，单词’middleweight’给我们一个额外的线索——我们讨论的是拳击(boxing)。</p>
+<p>要用神经网络来解决这个问题，我们需要给我们的模型添加状态。每一次我们要神经网络给出一个答案，我们也要保存中间计算结果，并重新使用它们作为下一次的部分输入。这样，我们的模型会根据最近看到的输入来调整其预测。</p>
+<ul>
+<li><blockquote>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-9.png" alt="enter description here"></p>
+</blockquote>
+</li>
+</ul>
+<p>跟踪我们模型中的状态，使得它可能不只是预测故事中的第一个字母，还在给定所有先前单词的情况下预测下一个字母。</p>
+<p>这是递归神经网络的的基本思想。我们每次更新网络都是使用该思想。这允许它根据最近看到的来更新其预测。它甚至可以模式模型化随着时间的推移，只要我们给神经网络足够的内存。</p>
+<h1 id="What’s-a-single-letter-good-for"><a href="#What’s-a-single-letter-good-for" class="headerlink" title="What’s a single letter good for?"></a>What’s a single letter good for?</h1><p>预测一则故事中下一个字母看起来毫无用处。这有什么意义呢？</p>
+<p>一个很酷的应用是，可以自动预测的手机键盘：</p>
+<ul>
+<li><blockquote>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-10.png" alt="The next most likely letter is “t”."></p>
+</blockquote>
+</li>
+</ul>
+<p>但是如果我们把这个想法趋向于极端呢？如果我们要求模型预测下一个最有可能出现的字符，一直一直这么预测下去——永远？那么它会为我们写下一个完成的故事！</p>
+<h1 id="Generating-a-story"><a href="#Generating-a-story" class="headerlink" title="Generating a story"></a>Generating a story</h1><p>我们看到我们如何猜到海明威句子的下一个单词。我们尝试生成一个完整的海明威风格的故事。</p>
+<p>为了实现这个目标，我们使用递归神经网络，由Andrej Karpathy所写。Andrej是斯坦福大学的一名深度学习的研究者，他写了一篇非常优秀的介绍性论文，是关于用RNNs生成文本。你可以在github上查看所有该模型的代码。</p>
+<p>我们将从<em>The Sun Also Rises</em>完整的书里面创建我们的模型，这本书——使用84个不同的字母，共362，239个字符（包括标点符号，大写/小写，等）。这个数据集实际上远小于真实世界的应用。要产生一个很好地、有海明威风格的模型，它最好有几倍于样本数量的文本。但是一本书已经足以发挥功效。</p>
+<p>当我们开始训练RNN，它并不能很好地预测字母。以下就是它经过100个循环后的训练结果：</p>
+<blockquote>
+<p>hjCTCnhoofeoxelif edElobe negnk e iohehasenoldndAmdaI ayio pe e h’e<br>btentmuhgehi bcgdltt. gey heho grpiahe. Ddelnss.eelaishaner” cot AAfhB<br>ht ltny ehbih a”on bhnte ectrsnae abeahngy amo k ns aeo?cdse nh a<br>taei.rairrhelardr er deffijha</p>
+</blockquote>
+<p>你可以清楚地看到，它已经断定单词与单词之间是由空格的。</p>
+<p>1000次迭代后，事情开起来更有前景了：</p>
+<blockquote>
+<p>hing soor ither. And the caraos, and the crowebel for figttier and ale<br>the room of me? Streat was not to him Bill-stook of the momansbed mig<br>out ust on the bull, out here. I been soms inick stalling that aid.<br>“Hon’t me and acrained on .Hw’s don’t you for the roed,” In’s pair.”<br>“Alough marith him.”</p>
+</blockquote>
+<p>该模型已经能在基本句子结构中识别模式。它能在句子的末尾加上句号，甚至加上了对话引号。有几句话是可以识别的，但是更多的句子是没有意义的。</p>
+<p>但是经过几千次的迭代交互训练，该模型看起来相当完美：</p>
+<blockquote>
+<p>He went over to the gate of the café. It was like a country bed.  “Do<br>you know it’s been me.”  “Damned us,” Bill said.  “I was dangerous,” I<br>said. “You were she did it and think I would a fine cape you,” I said.<br>“I can’t look strange in the cab.”  “You know I was this is though,”<br>Brett said.  “It’s a fights no matter?”  “It makes to do it.”  “You<br>make it?”  “Sit down,” I said. “I wish I wasn’t do a little with the<br>man.”  “You found it.”  “I don’t know.”  “You see, I’m sorry of<br>chatches,” Bill said. “You think it’s a friend off back and make you<br>really drunk.”</p>
+</blockquote>
+<p>在这一点上，该算法捕捉了海明威简短直接的对话写作的基本模式。有些句子甚至是有意义的。</p>
+<p>与这本书中一些真实的句子做比较：</p>
+<blockquote>
+<p>There were a few people inside at the bar, and outside, alone, sat<br>Harvey Stone. He had a pile of saucers in front of him, and he needed<br>a shave.  “Sit down,” said Harvey, “I’ve been looking for you.”<br>“What’s the matter?”  “Nothing. Just looking for you.”  “Been out to<br>the races?”  “No. Not since Sunday.”  “What do you hear from the<br>States?”  “Nothing. Absolutely nothing.”  “What’s the matter?”</p>
+</blockquote>
+<p>即使是只一次寻找一个字符的模式，我们的算法用适当的格式重现了看似合理的散文。这是多么的惊人！</p>
+<p>我们不必从头开始生成文本。我们可以提供算法最开始的几个字母，并让它自己找到接下来的字母。</p>
+<p>为了更有趣，我们用种子文本“Er”,”He”和“The S”来生成新的作者名字和新的标题，用于我们想象假书的封面：</p>
+<ul>
+<li><blockquote>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-11.png" alt="The real book is on the left and our silly computer-generated nonsense book is on the right."></p>
+</blockquote>
+</li>
+</ul>
+<p>不错哦！</p>
+<p>不过，真正令人兴奋的是该算法可以指出任何数据序列中的模式。它可以很容易的生成看似真实的菜谱或者假的奥巴马演讲稿。但是为什么要先知我们人类自己的语言呢？我们可以将相同的想法应用到任何一种有模式的数据序列中。</p>
+<h1 id="Making-Mario-without-actually-Making-Mario"><a href="#Making-Mario-without-actually-Making-Mario" class="headerlink" title="Making Mario without actually Making Mario"></a>Making Mario without actually Making Mario</h1><p>在2015年，Nintendo为Wii U游戏系统发布了超级马里奥制造器。</p>
+<ul>
+<li><blockquote>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-12.png" alt="Every kid’s dream!"></p>
+</blockquote>
+</li>
+</ul>
+<p>这款游戏可以让你在游戏手柄上画出自己的超级马里奥关卡，然后上传到网上，这样你的小伙伴们也可以一起玩。你可以在你自己的关卡中，设计原来马里奥游戏中所有经典的敌人形象。</p>
+<p>我们可以使用生成假海明威文本的模型，同样去生成假的超级马里奥关卡吗？</p>
+<p>首先，我们需要一个数据集来训练我们的模型。从1985年发布最初版本的超级马里奥游戏以来所有的版本关卡，都作为我们的训练数据:</p>
+<ul>
+<li><blockquote>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-13.png" alt="Best Christmas Ever. Thanks Mom and Dad!"></p>
+</blockquote>
+</li>
+</ul>
+<p>这个游戏有32个关卡，并且70%是相同的风格。所以我们会延续这样的风格。</p>
+<p>为了得到每个关卡的设计风格，我拿到了马里奥游戏的一个原始副本，并写了一个程序从游戏的内存中拉取关卡设计。超级马里奥是一个有着30年历史的游戏，网上有很多的资源帮助你找出关卡是如何存储在游戏的内存中的。从老旧视频游戏中提取关卡数据是一个很有趣的编程练习，你应该在某个时候尝试一下。</p>
+<p>这是超级马里奥的第一关（如果你曾玩过，你可能会记得）：</p>
+<ul>
+<li><blockquote>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-14.gif" alt="Super Mario Bros. Level 1–1"></p>
+</blockquote>
+</li>
+</ul>
+<p>如果我们仔细观察，我们可以看到关卡是由一个简单的网格对象构成的：</p>
+<ul>
+<li><blockquote>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/Mlp2-15.png" alt="enter description here"></p>
+</blockquote>
+</li>
+</ul>
+<p>我们可以很简单的用字符序列来表示这个网格，一个字符代表一个对象。<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">--------------------------</span><br><span class="line">--------------------------</span></span><br><span class="line"><span class="code">--------------------------</span><br><span class="line">#??#----------------------</span><br><span class="line">--------------------------</span></span><br><span class="line"><span class="section">--------------------------</span><br><span class="line">--------------------------</span></span><br><span class="line"><span class="section">-##------=--=----------==-</span><br><span class="line">--------==--==--------===-</span></span><br><span class="line"><span class="section">-------===--===------====-</span><br><span class="line">------====--====----=====-</span></span><br><span class="line">=========================-</span><br></pre></td></tr></table></figure></p>
+<p>我们在关卡中用一个字符替换一个对象：</p>
+<ul>
+<li>‘-‘表示空格 </li>
+<li>‘=’表示实心的砖块 </li>
+<li>‘#’表示易碎的砖块 </li>
+<li>‘?’表示金砖</li>
+</ul>
+<p>使用不同的字符代表关卡中不同种类的对象。</p>
+<p>我完成的文本文件看起来像这样：</p>
+<ul>
+<li><blockquote>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-16.png" alt="enter description here"></p>
+</blockquote>
+</li>
+</ul>
+<p>观察文本文件，如果一行一行的读下去，你可以看到马里奥的关卡没有一个很明显的模式：</p>
+<ul>
+<li><blockquote>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-17.png" alt="Reading line-by-line, there’s not really a pattern to capture. Lots of lines are completely blank."></p>
+</blockquote>
+</li>
+</ul>
+<p>模式会在一种层级上真正地出现，当你把这层级看成是一列一列的：</p>
+<ul>
+<li><blockquote>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-18.png" alt="Looking column-by-column, there’s a real pattern. Each column ends in a ‘=’ for example."></p>
+</blockquote>
+</li>
+</ul>
+<p>所以为了算法能够在我的数据中找到通用的模式，我们需要以列的形式训练数据。找出你的输入数据中有效的表示方式（称之为特征选择）是使用机器学习算法的关键因素之一。</p>
+<p>为了训练模型，我需要90度旋转我的文本文件。该行为确保了字符按顺序送入模型中，通用模式更容易出现：<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">-----------=</span><br><span class="line">-------#---=</span><br><span class="line">-------#---=</span><br><span class="line">-------?---=</span><br><span class="line"><span class="section">-------#---=</span><br><span class="line">-----------=</span></span><br><span class="line">-----------=</span><br><span class="line">----------@=</span><br><span class="line"><span class="section">----------@=</span><br><span class="line">-----------=</span></span><br><span class="line"><span class="section">-----------=</span><br><span class="line">-----------=</span></span><br><span class="line">---------PP=</span><br><span class="line"><span class="section">---------PP=</span><br><span class="line">----------==</span></span><br><span class="line"><span class="section">---------===</span><br><span class="line">--------====</span></span><br><span class="line"><span class="section">-------=====</span><br><span class="line">------======</span></span><br><span class="line"><span class="section">-----=======</span><br><span class="line">---=========</span></span><br><span class="line">---=========</span><br></pre></td></tr></table></figure></p>
+<h1 id="Training-Our-Model"><a href="#Training-Our-Model" class="headerlink" title="Training Our Model"></a>Training Our Model</h1><p>就像我们看到海明威散文模型被创造的时候一样，一个模型的改进正是因为我们训练它自身。</p>
+<p>经过一丁点的训练后，我们的模型一直产生垃圾：<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">--------------------------</span><br><span class="line">LL+&lt;&amp;=------P-------------</span><br><span class="line">--------</span></span><br><span class="line"><span class="section">---------------------T--#--</span><br><span class="line">-----</span></span><br><span class="line"><span class="section">-=--=-=------------=-&amp;--T--------------</span><br><span class="line">--------------------</span></span><br><span class="line">--=------$-=#-=-_</span><br><span class="line">--------------=----=&lt;----</span><br><span class="line">-------b</span><br><span class="line">-</span><br></pre></td></tr></table></figure></p>
+<p>它表现出来一个想法，’-‘和’=’应该有很多。但是它还没有指出模式。</p>
+<p>经过几千次的迭代，它开始看起来想点什么了：<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">--</span><br><span class="line">-----------=</span></span><br><span class="line">----------=</span><br><span class="line">--------PP=</span><br><span class="line"><span class="section">--------PP=</span><br><span class="line">-----------=</span></span><br><span class="line"><span class="section">-----------=</span><br><span class="line">-----------=</span></span><br><span class="line"><span class="section">-------?---=</span><br><span class="line">-----------=</span></span><br><span class="line">-----------=</span><br></pre></td></tr></table></figure></p>
+<p>该模型几乎可以计算出每一行应该有相同的长度。它似乎已经开始计算出马里奥的一些逻辑：管道有两个块的宽度，高度至少两个块，所以”P”应该以2x2的矩阵块方式出现。多么酷的事情！</p>
+<p>随着更多次的训练，该模型可以在任意点上生成最有效的数据：<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">--------PP=</span><br><span class="line"><span class="section">--------PP=</span><br><span class="line">----------=</span></span><br><span class="line"><span class="section">----------=</span><br><span class="line">----------=</span></span><br><span class="line">---PPP=---=</span><br><span class="line"><span class="section">---PPP=---=</span><br><span class="line">----------=</span></span><br></pre></td></tr></table></figure></p>
+<p>从我们的模型中截取一段完整的数据，并旋转其到水平位置：</p>
+<ul>
+<li><blockquote>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/Mlp2-19.png" alt="A whole level, generated from our model!"></p>
+</blockquote>
+</li>
+</ul>
+<p>这个数据看起来很不错！有几个很惊人的事情可以注意到：</p>
+<ul>
+<li>它把Lakitu从关卡开始就放到了天空上——这一点像极了真正的马里奥游戏关卡。</li>
+<li>它知道漂浮在空气中的管道应该扎根在砖块上，而不是停留在空气中。</li>
+<li>它把敌人放到了合乎逻辑的地方。</li>
+<li>它没有创造出任何阻碍玩家前进的东西。</li>
+</ul>
+<p>最后，我们采用这个关卡，并在超级马里奥制造器里面重新创建该游戏:</p>
+<ul>
+<li><blockquote>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp2-20.jpeg" alt="Our level data after being entered into Super Mario Maker"></p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><blockquote>
+<iframe width="700" height="393" src="https://www.youtube.com/embed/_-Gc6diodcY" frameborder="0" allowfullscreen></iframe>
+
+</blockquote>
+</li>
+</ul>
+<p>%<a href="https://youtu.be/_-Gc6diodcY" target="_blank" rel="external">enter description here</a></p>
+<h1 id="Toys-vs-Real-World-Applications"><a href="#Toys-vs-Real-World-Applications" class="headerlink" title="Toys vs. Real World Applications"></a>Toys vs. Real World Applications</h1><p>我们使用的递归神经网络算法来训练我们的模型，现实世界的公司来解决困难的问题，比如语音检测和语义识别。什么原因使得我们的模型像一个“玩具”而不是前沿科技，是因为我们的模型是由非常小的数据生成。原来的超级马里奥游戏里没有提供足够多的数据用于生成一个好的模型。</p>
+<p>如果我们能够获得成千上万的用户创建的超级马里奥游戏关卡，那我们就能做出一个惊人的模型。但是我们不能——Nintendo不会让我们这么干。大公司不会免费开放他们的数据。</p>
+<p><strong>随着机器学习在更多的行业变得越来越重要，好程序与坏程序之间的区别将是有多少数据你可以用于训练你的模型。这就是为什么像Google和Facebook这样的公司极需要你的数据！</strong></p>
+<p>例如，Google最近的开源项目TensorFlow，这是建设大规模机器学习应用的软件开发包。Google免费开放了如此重要的技术，这是一个相当大的交易，可以壮大Google Translate。<br>Google Translate。<br>但是，没有Google对每一种语言巨大的数据宝库，你也不能创造一个竞争者对抗Google Translate。数据给了Google前沿的竞争力。试着想一下，你下一次打开Google地图的历史位置或者Facebook的历史位置，可以注意到它记录了你曾经去过的每一个地方。</p>
+<h1 id="Further-Reading"><a href="#Further-Reading" class="headerlink" title="Further Reading"></a>Further Reading</h1><p>在机器学习中，从来没有单独一个方法解决问题。当决定如何预处理你的数据、选择何种算法的时候，你又无限的选择。经常地融合多种方法会给你更佳的结果，比任何单一的方法。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag">#机器学习</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/18/二叉树遍历算法总结/" rel="next" title="二叉树遍历算法总结">
+                <i class="fa fa-chevron-left"></i> 二叉树遍历算法总结
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/11/22/Machine Learning is fun Part2/"
+     data-title="Machine Learning is fun(Part 2)译文"
+     data-content=""
+     data-url="http://henryliyunfeng.github.io/2016/11/22/Machine Learning is fun Part2/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/22/Machine Learning is fun Part2/"
+           data-title="Machine Learning is fun(Part 2)译文" data-url="http://henryliyunfeng.github.io/2016/11/22/Machine Learning is fun Part2/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xvohu.com1.z0.glb.clouddn.com/%E5%A4%B4%E5%83%8F.jpg"
+               alt="Yunfeng" />
+          <p class="site-author-name" itemprop="name">Yunfeng</p>
+          <p class="site-description motion-element" itemprop="description">今天比昨日多努力0.01%，只为遇见更好的自己。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/henryliyunfeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2953020495" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/li-xiao-yun-41-61" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Making-Smarter-Guesses"><span class="nav-number">1.</span> <span class="nav-text">Making Smarter Guesses</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#What-is-a-Neural-Network"><span class="nav-number">2.</span> <span class="nav-text">What is a Neural Network?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Give-our-Neural-Network-a-Memory"><span class="nav-number">3.</span> <span class="nav-text">Give our Neural Network a Memory</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#What’s-a-single-letter-good-for"><span class="nav-number">4.</span> <span class="nav-text">What’s a single letter good for?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Generating-a-story"><span class="nav-number">5.</span> <span class="nav-text">Generating a story</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Making-Mario-without-actually-Making-Mario"><span class="nav-number">6.</span> <span class="nav-text">Making Mario without actually Making Mario</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Training-Our-Model"><span class="nav-number">7.</span> <span class="nav-text">Training Our Model</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Toys-vs-Real-World-Applications"><span class="nav-number">8.</span> <span class="nav-text">Toys vs. Real World Applications</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Further-Reading"><span class="nav-number">9.</span> <span class="nav-text">Further Reading</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yunfeng</span>
+  
+  <span id="busuanzi_container_site_pv">
+    &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;本站总访问量<span id="busuanzi_value_site_pv"></span>
+</span>
+<span id="busuanzi_container_site_uv">
+  &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;茫茫人海，您是第<span id="busuanzi_value_site_uv"></span>个来到的小伙伴
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"henryliyunfeng"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("TiFFJLE8TDLzKGAXQ2PFLdzr-gzGzoHsz", "ceYX24I4vU17FYJgnEk485JN");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
