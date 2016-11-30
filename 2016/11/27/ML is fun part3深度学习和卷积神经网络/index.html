@@ -1,0 +1,1001 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="JH2VF1pD6Gk01caFiTXuYGJ_9ukM1Y_q_iUUij7e6Eg" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="机器学习," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="英文出处：https://medium.com/@ageitgey/machine-learning-is-fun-part-3-deep-learning-and-convolutional-neural-networks-f40359318721#.ez3em55bo
+
+你是否已经厌倦了阅读无休止的深度学习的文章，却不知道其真正含义？让我们改变这种窘境！。
+这一次，我们将学习如何编写程序，运">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ML is fun!(part3深度学习和卷积神经网络)">
+<meta property="og:url" content="http://henryliyunfeng.github.io/2016/11/27/ML is fun part3深度学习和卷积神经网络/index.html">
+<meta property="og:site_name" content="Yunfeng's Home">
+<meta property="og:description" content="英文出处：https://medium.com/@ageitgey/machine-learning-is-fun-part-3-deep-learning-and-convolutional-neural-networks-f40359318721#.ez3em55bo
+
+你是否已经厌倦了阅读无休止的深度学习的文章，却不知道其真正含义？让我们改变这种窘境！。
+这一次，我们将学习如何编写程序，运">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-1.gif">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-2.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-3.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-4.jpeg">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-5.gif">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-6.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-7.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-8.jpeg">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-9.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-10.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-11.gif">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-12.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-13.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-14.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-15.jpeg">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-16.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-17.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-18.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-19.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-20.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-21.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-22.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-23.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-24.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-25.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-26.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-27.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-28.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-29.png">
+<meta property="og:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-30.png">
+<meta property="og:updated_time" content="2016-11-30T02:01:16.476Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ML is fun!(part3深度学习和卷积神经网络)">
+<meta name="twitter:description" content="英文出处：https://medium.com/@ageitgey/machine-learning-is-fun-part-3-deep-learning-and-convolutional-neural-networks-f40359318721#.ez3em55bo
+
+你是否已经厌倦了阅读无休止的深度学习的文章，却不知道其真正含义？让我们改变这种窘境！。
+这一次，我们将学习如何编写程序，运">
+<meta name="twitter:image" content="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-1.gif">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://henryliyunfeng.github.io/2016/11/27/ML is fun part3深度学习和卷积神经网络/"/>
+
+  <title> ML is fun!(part3深度学习和卷积神经网络) | Yunfeng's Home </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Yunfeng's Home</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">一步一脚印</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br />
+            
+            链接
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-douban">
+          <a href="/douban" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            读书
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ML is fun!(part3深度学习和卷积神经网络)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-27T11:47:42+08:00" content="2016-11-27">
+              2016-11-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/27/ML is fun part3深度学习和卷积神经网络/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/27/ML is fun part3深度学习和卷积神经网络/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/11/27/ML is fun part3深度学习和卷积神经网络/" class="leancloud_visitors" data-flag-title="ML is fun!(part3深度学习和卷积神经网络)">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>英文出处：<a href="https://medium.com/@ageitgey/machine-learning-is-fun-part-3-deep-learning-and-convolutional-neural-networks-f40359318721#.ez3em55bo" target="_blank" rel="external">https://medium.com/@ageitgey/machine-learning-is-fun-part-3-deep-learning-and-convolutional-neural-networks-f40359318721#.ez3em55bo</a></p>
+</blockquote>
+<p>你是否已经厌倦了阅读无休止的<em>深度学习</em>的文章，却不知道其真正含义？让我们改变这种窘境！。</p>
+<p>这一次，我们将学习如何编写程序，运用深度学习去识别图像中的对象。换句话说，我们将向你解释Google Photos是如何通过照片本身来找到正是你需要照片，这种黑魔法的神奇：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-1.gif" alt="Google now lets you search your own photos by description—even if they aren’t tagged! How does this work??"></p>
+<a id="more"></a>
+<p>正如Part1和<a href="https://henryliyunfeng.github.io/2016/11/22/Machine%20Learning%20is%20fun%20Part2/">Part2</a>所述，本文是为了那些对机器学习充满好奇，而又无从下手的人准备的。</p>
+<h1 id="深度学习的目标识别"><a href="#深度学习的目标识别" class="headerlink" title="深度学习的目标识别"></a>深度学习的目标识别</h1><p>你可能之前已经看过著名的<a href="http://xkcd.com/1425/" target="_blank" rel="external">xkcd漫画</a>。</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-2.png" alt="xkcd #1425"></p>
+<p>一个3岁的小孩可以识别出照片上的一只鸟，但是怎样让计算机识别目标困恼了科学家50年，即便是最优秀的计算机领域的专家。</p>
+<p>在过去的几年里，我们终于找到一种很好的方法来识别目标物体，即<em>深度卷积神经网络</em>。这提起来像是威廉吉布森小说里一个词一个词组合而成，但是其思想完全可以有单独的词来理解。</p>
+<p>让我写一个程序来识别这些可爱的鸟吧！</p>
+<h1 id="从简单地开始"><a href="#从简单地开始" class="headerlink" title="从简单地开始"></a>从简单地开始</h1><p>在我们学习如何识别鸟类图片之前，我们先学习识别一些更简单的——比如手写的数字“8”。</p>
+<p>在<a href="https://henryliyunfeng.github.io/2016/11/22/Machine%20Learning%20is%20fun%20Part2/">Part2</a>，我们学习神经网络是把许许多多简单的神经元连接在一起，能够解决很多复杂度的问题。在卧室个数，面积，和所在区域这些影响因素的基础上，我们创建了一个小的神经网络来估算房屋的价格：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-3.png" alt="enter description here"></p>
+<p>我们都知道机器学习的精髓，就是相同的泛型算法可以重复使用不同的数据来解决不同的问题。所以我们可以修改同样的神经网络来识别手写文本。但是为了让这项工作更简单，我们就只是识别一个字符——数字”8“。</p>
+<p>当你有数据的时候，机器学习才能有效——最好是大量的数据。所以我们需要很多很多的手写体”8“，才能开始训练。幸运的是，研究者创建了<a href="http://yann.lecun.com/exdb/mnist/" target="_blank" rel="external">MNIST数据库</a>，专门是为手写数字准备的数据集。MNIST提供60,000张手写体图片，每一张大小18x18。这里截出一些”8“的图片：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-4.jpeg" alt="Some 8s from the MNIST data set"> </p>
+<h2 id="其实想一想，一切都是数字"><a href="#其实想一想，一切都是数字" class="headerlink" title="其实想一想，一切都是数字"></a>其实想一想，一切都是数字</h2><p>在Part2中，我们仅采用3个数字作为神经网络的输入（3间卧室，2000平方英尺等）。但是现在我们想要用同样的神经网络来处理图片。问题来了，怎样把图片塞进神经网络里面而不是简单的几个数字？</p>
+<p>答案是难以置信的简单。神经网络以数字作为输入。对计算机而言，一张图片其实是数字组成的网格，这些数字代表每个像素是有多黑：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-5.gif" alt="enter description here"></p>
+<p>一张图片如何输入到我们的神经网络，只要简单的把18x18的图片看成324个数字的数组：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-6.png" alt="enter description here"></p>
+<p>为了处理这324个输入，我们只要扩大我们的神经网络到324个输入节点：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-7.png" alt="enter description here"></p>
+<p>值得注意的是，我们的神经网络也有两个输出（而不是一个）。第一个输出表述预测是图像”8“的可能性，第二个表示预测不是图像”8“的可能性。通过分开不同物体类型的输出，我们也可以使用神经网络把物体分类到不同组别。</p>
+<p>我们的神经网络已经比上次大得多（324的输入而不是3的！）。不用担心，现代计算机可以处理几百个节点的神经网络。这甚至能在你的手机上运行。</p>
+<p>剩下的工作就是用”8“的图片和不是”8“的图片来训练你的神经网络。当你输入一张”8“的图片，我们会告诉神经网络这张是”8“的可能性是100%，不是”8“的可能性是0%。反之，亦然。</p>
+<p>这里是一些我们用于训练的数据：</p>
+<p> <img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-8.jpeg" alt="Mmm… sweet, sweet training data"></p>
+<p>在现代笔记本上，我们可以在几分钟内训练这种神经网络。完成后，我们可以用这个神经网络来识别图像”8“,有相当高的精确度。欢迎来到图像识别的世界！（可追述到1980年）。</p>
+<h1 id="致命陷阱"><a href="#致命陷阱" class="headerlink" title="致命陷阱"></a>致命陷阱</h1><p>简单的输入像素到神经网络中，真的可以简历图片识别系统！机器学习多么神奇！….对吗？</p>
+<p><strong><em>当然不是那么简单。</em></strong></p>
+<p>首先，好消息是，我们的图像”8“识别模型可以工作的很好，对于那些”8“在图片中央的：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-9.png" alt="enter description here"></p>
+<p>但是，现实往往不是这样：</p>
+<p>当字母不在图片中央的时候，我们的”8“识别模型总是失败。只要稍微一点位置变化就毁了一切：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-10.png" alt="enter description here"></p>
+<p>这是因为我们的神经网络模型只学习了中间”8“的模式。非中间”8“的情况，它完全不懂。它只能确定一种模式。</p>
+<p>这在现实世界并不是很有用。现实世界的问题从未清晰简单。所以我们需要解决”8“不在中央的情况下，怎么样使得我们的神经网络很好的工作。</p>
+<h2 id="暴力法-1：滑动窗口搜索"><a href="#暴力法-1：滑动窗口搜索" class="headerlink" title="暴力法#1：滑动窗口搜索"></a>暴力法#1：滑动窗口搜索</h2><p>我们已经创建了一个比较好的程序用于需找图片中央的”8“。如果我们以较小范围扫描整个图片，这个小范围叫做窗口，每次一个窗口，直到找到为止：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-11.gif" alt="enter description here"></p>
+<p>这种方法我们称之为滑动窗口，比较蛮力的方法。在有一些限制的情况下，它工作的很好，但不是很有效率。你不得不一遍又一遍检测相同的图像，去寻找不同的尺寸。我们可以做得比这个更好!</p>
+<h2 id="暴力法-2：更多的数据和深度神经网络"><a href="#暴力法-2：更多的数据和深度神经网络" class="headerlink" title="暴力法#2：更多的数据和深度神经网络"></a>暴力法#2：更多的数据和深度神经网络</h2><p>当我们训练我的的网络模型时，我们只是显示了在图片中央的“8”。那如果我们用更多的数据来训练呢？包括不同大小、不同位置的“8”,又该如何？</p>
+<p>我们甚至不需要收集新的训练数据。我们可以写一个脚本用于生成新的图片。“8”在这些图片的不同的位置：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-12.png" alt="We created Synthetic Training Data by creating different versions of the training images we already had. This is a very useful technique!"></p>
+<p>通过这个技术，我们可以轻而易举创造出无限多个的训练数据。</p>
+<p>更多的数据使得我们的神经网络要解决的问题更加复杂，但是，我们可以让我们的网络模型变得更大，从而能够学习更多复杂的模式。</p>
+<p>为了使我们的网络模型更强大，我们只是把一层一层的节点连接起来：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-13.png" alt="enter description here"></p>
+<p>我们把这个，称之为”深度神经网络“。因为它较之传统的神经网络，有更多的层。</p>
+<p>这个想法自1960年代以来，一直存在。直到最近，训练一个大型的神经网络速度太慢，但是非常有用。但是，一旦我们想出怎样使用3D图形显卡（被用作矩阵乘法非常快），而不是平常的计算机处理器，那么大型的神经网络工作就变得非常实用。事实上,NVIDIA GeForce GTX 1080视频卡用作神经网络的训练，速度快得令人难以置信：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-14.png" alt="enter description here"></p>
+<p>即使我们可以使我们的神经网络变得很大，并用3D图形卡快速的训练它，它依然不能一路无阻的给我们一个解决方案。我们需要更加聪明，在用神经网络处理图像的时候。</p>
+<p>仔细想一想。分开训练用于识别”8“在图片顶部和在图片底部的两个神经网络，是没有意义的。</p>
+<p>应该有一些方法使得神经网络更加聪明，不需要额外的训练，就知道”8“在图片中的任何位置其实是一样的。幸运的是…答案就在这里！</p>
+<h1 id="解决方案就是卷积"><a href="#解决方案就是卷积" class="headerlink" title="解决方案就是卷积"></a>解决方案就是卷积</h1><p>以人类的视角，你直观地知道一张图片的层次或者概念结构。思考下面这张图片：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-15.jpeg" alt="Gratuitous picture of my son"></p>
+<ul>
+<li>地上覆盖着青草和水泥</li>
+<li>有一个小孩</li>
+<li>小孩坐在木马上</li>
+<li>木马放在青草上</li>
+</ul>
+<p>重要的是，无论小孩坐在什么上面，我们都可以轻而易举地识别出小孩。我们不需要因为小孩坐在不同的表面上而去重新学习。</p>
+<p>但现在，我们的神经网络做不到这样。它认为“8”位于图片不同的部分是完全不同的事情。它完全不理解目标物体在图片上移动并没有发生实质的变化。这就意味着我们的神经网络必须重新学习，在每个位置上识别目标物体。这个很糟糕！</p>
+<p>我们需要让我们的神经网络明白<em>平移不变性</em>——“8”就是“8”，无论在图片的什么位置显示。</p>
+<p>想要完成这个目的，我们使用一个过程，称之为卷积。卷积的概念一部分是受计算机科学启发，一部分是生物学引导（疯狂的科学家用奇怪的探针刺激猫的大脑，分析猫咪是如何处理图像的）。</p>
+<h1 id="卷积如何工作"><a href="#卷积如何工作" class="headerlink" title="卷积如何工作"></a>卷积如何工作</h1><p>无论目标物体出现在图像中哪个位置，我们利用它本身的特征做更多聪明的事情。而不是把整张图片作为神经网络的输入。</p>
+<p>下面一步一步的展示工作流程——</p>
+<h2 id="Step-1：分割图像成重叠的图像块"><a href="#Step-1：分割图像成重叠的图像块" class="headerlink" title="Step 1：分割图像成重叠的图像块"></a>Step 1：分割图像成重叠的图像块</h2><p>类似于上面介绍的滑动窗口搜索，在原图上我们每次滑动一次窗口，并保存每个结果作为独立的、小的图像块：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-16.png" alt="enter description here"></p>
+<p>我们把原图分割成了77个同样大小的图像块。</p>
+<h2 id="Step-2：把每个小图像块输入小型神经网络"><a href="#Step-2：把每个小图像块输入小型神经网络" class="headerlink" title="Step 2：把每个小图像块输入小型神经网络"></a>Step 2：把每个小图像块输入小型神经网络</h2><p>之前，我们把一张图片输入到神经网络中，看图片是不是手写体“8”。这里我们将做同样的事情，仅针对每个独立图像块：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-17.png" alt="Repeat this 77 times, once for each tile."></p>
+<p>好吧，<strong>这里有一个大的迷惑点</strong>：在同一张原图上，我们将为每个单独的图像块，<strong>保持神经网络权值不变</strong>。换句话说，我们会平等对待每个单独的图像块。如果有什么感兴趣的东西在任何一个图像块上，我们将会标记这个图像块。</p>
+<h2 id="Step-3：保存每个图像块的结果到新数组"><a href="#Step-3：保存每个图像块的结果到新数组" class="headerlink" title="Step 3：保存每个图像块的结果到新数组"></a>Step 3：保存每个图像块的结果到新数组</h2><p>我们不想失去对原图像块的控制。所以我们保存的是处理每个图像块后的结果，按照原图分布保存。就像下面这样：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-18.png" alt="enter description here"></p>
+<p>换句话说，我们从一张大尺寸图像入手，以小型数组结尾。其中这个数组记录着原图中哪些部分是我们最感兴趣的。</p>
+<h2 id="Step-4-减采样"><a href="#Step-4-减采样" class="headerlink" title="Step 4: 减采样"></a>Step 4: 减采样</h2><p>Step 3的结果是一个数组，映射出原图中哪些部分是最感兴趣的。但这个数组还是太大了：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-19.png" alt="enter description here"></p>
+<p>为了降低数组的大小，我们使用一种算法减采样，称之为最大池化。这听起来非常有趣，但实际并不是！</p>
+<p>我们会以2x2的方针扫描数组，并拿出最大的哪个数字：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-20.png" alt="enter description here"></p>
+<p>这个想法就是，我们可以在由4个输入图像块组成的2x2方阵中找到一些感兴趣的东西，我们就拿出这些感兴趣的项。这在降低我们数组大小的同时，保持了最重要的项。</p>
+<h2 id="Final-step：做预测"><a href="#Final-step：做预测" class="headerlink" title="Final step：做预测"></a>Final step：做预测</h2><p>做到这里，我们已经把一个巨大的图像缩小成了一个相当小的数组。</p>
+<p>这个数组只是一堆数字，所以我们可以使用这个小数组作为下一层神经网络的输入。最后一层神经网络将决定这个图像是不是匹配。把这一步与卷积过程区分开来，我们称其为“全连接”。</p>
+<p>所以从开始到完成，我们总共5个步骤看起来就像这样：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-21.png" alt="enter description here"></p>
+<h2 id="添加更多的步骤"><a href="#添加更多的步骤" class="headerlink" title="添加更多的步骤"></a>添加更多的步骤</h2><p>我们的图像处理过程就是一系列步骤：卷积，最大池化，和全连接。</p>
+<p>当处理现实世界的问题的时候，这些步骤可以组合堆叠许多次。只要你想，你可以有2层、3层，甚至10个卷积层。你也可以做池化，在任何你想缩小数据大小的地方。</p>
+<p>基本思想就是以一张大尺寸图像开始，继续一步一步的降维，直到你有一个单一的结果。卷积层越多，你的神经网络所能学习去识别的特越复杂。</p>
+<p>例如，第一层卷积可以学习识别尖锐的边缘，第二层卷积可以使用尖锐边缘特征识别出喙，第三层卷积可以使用喙特征识别出整个鸟，等等。</p>
+<p>这是一个更加现实的深度卷积神经网络（像你找到的某篇论文），如这样：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-22.png" alt="enter description here"></p>
+<p>在这种情况下，以一个224x224大小的图像开始，应用卷积和池化分别两次，接着应用卷积3次，最后应用一次池化和两次全连接。最终的结果就是爱图像被分类到1000个类别中的一种！</p>
+<h2 id="构建正确的神经网络"><a href="#构建正确的神经网络" class="headerlink" title="构建正确的神经网络"></a>构建正确的神经网络</h2><p>那么，你如何知道哪些步骤，你需要结合起来，使你的图像分类的更好？</p>
+<p>说实话，要回答这个问题，你必须做大量的实验和测试。你可能需要训练100个神经网络，然后才能找到你所解决问题的最佳结构和参数。</p>
+<p>机器学习涉及到大量的实验和错误！</p>
+<h1 id="建立我们鸟类的分类器"><a href="#建立我们鸟类的分类器" class="headerlink" title="建立我们鸟类的分类器"></a>建立我们鸟类的分类器</h1><p>现在我们完全可以写一个程序，用来决定一张图片是不是鸟。</p>
+<p>一如既往，我们需要一些数据开始。免费的<a href="https://www.cs.toronto.edu/~kriz/cifar.html" target="_blank" rel="external">CIFAR10数据集</a>包含6,000张鸟类图片和52,000不是鸟类的图片。但是要获得更多的数据，我们可以加入加州理工学院的 <a href="http://www.vision.caltech.edu/visipedia/CUB-200-2011.html" target="_blank" rel="external">Birds-200–2011的数据集</a>，这里面有另外12,000张鸟类图片。</p>
+<p>这里从我们的数据集截取一些鸟类图片：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-23.png" alt="enter description here"></p>
+<p>这里有53,000张非鸟类图片：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-24.png" alt="enter description here"></p>
+<p>这个数据集可以工作的很好，但是72,000张低分辨率图片集对于现实世界来说还是相当小的。如果你想要Google级别的性能，你需要百万数量的图片。<strong>在机器学习中，拥有更多的数据对于拥有算法更好的性能至关重要</strong>。现在你知道为什么Google这么乐意给你提供没有上限照片存储空间。他们想要你的甜蜜呀，甜蜜的数据！</p>
+<p>为了建立我们的分类器，我们使用<a href="http://tflearn.org/" target="_blank" rel="external">TFLearn</a>。TFLearn是Google <a href="https://www.tensorflow.org/" target="_blank" rel="external">TensorFlow</a>深度学习的开源库，已经有了很简易的API。它使得建立卷积神经网络变得很简单，写几行代码就可以定义我们的网络层。</p>
+<p>下面是定义和训练网络模型的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">Based on the tflearn example located here:</span><br><span class="line">https://github.com/tflearn/tflearn/blob/master/examples/images/convnet_cifar10.py</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">from __future__ import division, print_function, absolute_import</span><br><span class="line"></span><br><span class="line"># Import tflearn and some helpers</span><br><span class="line">import tflearn</span><br><span class="line">from tflearn.data_utils import shuffle</span><br><span class="line">from tflearn.layers.core import input_data, dropout, fully_connected</span><br><span class="line">from tflearn.layers.conv import conv_2d, max_pool_2d</span><br><span class="line">from tflearn.layers.estimator import regression</span><br><span class="line">from tflearn.data_preprocessing import ImagePreprocessing</span><br><span class="line">from tflearn.data_augmentation import ImageAugmentation</span><br><span class="line">import pickle</span><br><span class="line"></span><br><span class="line"># Load the data set</span><br><span class="line">X, Y, X_test, Y_test = pickle.load(open(&quot;full_dataset.pkl&quot;, &quot;rb&quot;))</span><br><span class="line"></span><br><span class="line"># Shuffle the data</span><br><span class="line">X, Y = shuffle(X, Y)</span><br><span class="line"></span><br><span class="line"># Make sure the data is normalized</span><br><span class="line">img_prep = ImagePreprocessing()</span><br><span class="line">img_prep.add_featurewise_zero_center()</span><br><span class="line">img_prep.add_featurewise_stdnorm()</span><br><span class="line"></span><br><span class="line"># Create extra synthetic training data by flipping, rotating and blurring the</span><br><span class="line"># images on our data set.</span><br><span class="line">img_aug = ImageAugmentation()</span><br><span class="line">img_aug.add_random_flip_leftright()</span><br><span class="line">img_aug.add_random_rotation(max_angle=25.)</span><br><span class="line">img_aug.add_random_blur(sigma_max=3.)</span><br><span class="line"></span><br><span class="line"># Define our network architecture:</span><br><span class="line"></span><br><span class="line"># Input is a 32x32 image with 3 color channels (red, green and blue)</span><br><span class="line">network = input_data(shape=[None, 32, 32, 3],</span><br><span class="line">                     data_preprocessing=img_prep,</span><br><span class="line">                     data_augmentation=img_aug)</span><br><span class="line"></span><br><span class="line"># Step 1: Convolution</span><br><span class="line">network = conv_2d(network, 32, 3, activation=&apos;relu&apos;)</span><br><span class="line"></span><br><span class="line"># Step 2: Max pooling</span><br><span class="line">network = max_pool_2d(network, 2)</span><br><span class="line"></span><br><span class="line"># Step 3: Convolution again</span><br><span class="line">network = conv_2d(network, 64, 3, activation=&apos;relu&apos;)</span><br><span class="line"></span><br><span class="line"># Step 4: Convolution yet again</span><br><span class="line">network = conv_2d(network, 64, 3, activation=&apos;relu&apos;)</span><br><span class="line"></span><br><span class="line"># Step 5: Max pooling again</span><br><span class="line">network = max_pool_2d(network, 2)</span><br><span class="line"></span><br><span class="line"># Step 6: Fully-connected 512 node neural network</span><br><span class="line">network = fully_connected(network, 512, activation=&apos;relu&apos;)</span><br><span class="line"></span><br><span class="line"># Step 7: Dropout - throw away some data randomly during training to prevent over-fitting</span><br><span class="line">network = dropout(network, 0.5)</span><br><span class="line"></span><br><span class="line"># Step 8: Fully-connected neural network with two outputs (0=isn&apos;t a bird, 1=is a bird) to make the final prediction</span><br><span class="line">network = fully_connected(network, 2, activation=&apos;softmax&apos;)</span><br><span class="line"></span><br><span class="line"># Tell tflearn how we want to train the network</span><br><span class="line">network = regression(network, optimizer=&apos;adam&apos;,</span><br><span class="line">                     loss=&apos;categorical_crossentropy&apos;,</span><br><span class="line">                     learning_rate=0.001)</span><br><span class="line"></span><br><span class="line"># Wrap the network in a model object</span><br><span class="line">model = tflearn.DNN(network, tensorboard_verbose=0, checkpoint_path=&apos;bird-classifier.tfl.ckpt&apos;)</span><br><span class="line"></span><br><span class="line"># Train it! We&apos;ll do 100 training passes and monitor it as it goes.</span><br><span class="line">model.fit(X, Y, n_epoch=100, shuffle=True, validation_set=(X_test, Y_test),</span><br><span class="line">          show_metric=True, batch_size=96,</span><br><span class="line">          snapshot_epoch=True,</span><br><span class="line">          run_id=&apos;bird-classifier&apos;)</span><br><span class="line"></span><br><span class="line"># Save model when training is complete to a file</span><br><span class="line">model.save(&quot;bird-classifier.tfl&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>如果你有一个好的图形显卡，有足够的RAM（比如NVIDIA的GeForce GTX 980 Ti或者更好的），训练工作耗时还不到一个小时。如果用普通的cpu训练，它可能需要更长的时间。</p>
+<p>随着不停地训练，准确度将会增加。第一轮训练完成后，我得到75.4%的准确率。10轮训练后，准确度达到91.7%。50轮或者更多轮之后，准确度限制在95.5%。再多的训练已经没有帮助，所以我终止于此。</p>
+<p>恭喜！我们的程序现在可以识别图片中的鸟类了！</p>
+<h1 id="测试我们神经网络"><a href="#测试我们神经网络" class="headerlink" title="测试我们神经网络"></a>测试我们神经网络</h1><p>现在已经有一个训练过的神经网络，我们可以使用它。<a href="https://gist.github.com/ageitgey/a40dded08e82e59724c70da23786bbf0" target="_blank" rel="external">这里有一个简单的脚本</a>，可以用来测试单张图像，判别其是否为鸟类。</p>
+<p>但是真正去看我们的网络模型是如何有效地预测，我们需要测试大量的图片。我创建的数据集保留了15,000张图片，用于验证。当我在网络模型上运行这15,000张图片的时候，它预测的正确率有95%。</p>
+<p>这似乎很好，对吗？嗯…这取决于！</p>
+<h2 id="真的有95-准确吗？"><a href="#真的有95-准确吗？" class="headerlink" title="真的有95%准确吗？"></a>真的有95%准确吗？</h2><p>我们的网络模型声称95%准确。但是细节决定成败。这可以能意味着各种不同的东西。</p>
+<p>举个例子，如果我们的训练集中有5%的鸟类图片和其他95%的非鸟类图片？一个猜”不是鸟“的程序每一次都是95%准确的！但它也是100%没有用的。</p>
+<p>我们需要仔细的看这些数字而不是整体的准确率。要判断一个分类系统到底有多好，我们需要仔细看看它是如何失败的，而不仅仅是它失败次数的百分比。</p>
+<p>之前考虑到我们的预测只有“正确”或者“错误”，现在我们打破这种常规，把我们的预测分为四个不同的类别——</p>
+<ul>
+<li>第一种，有一些鸟类图片，我们的神经网络可以正确地识别为鸟类。我们称之为<strong>真正例</strong>：</li>
+</ul>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-25.png" alt="Wow! Our network can recognize lots of different kinds of birds successfully!"></p>
+<ul>
+<li>第二种，下面一些的图片，我们的神经网络正确地识别为“非鸟类”，称之为<strong>真反例</strong>：</li>
+</ul>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-26.png" alt="Horses and trucks don’t fool us!"></p>
+<ul>
+<li>第三种，下面的一些图片，我们认为是鸟类，但不完全是真正的鸟。这些称之为<strong>假正例</strong>：</li>
+</ul>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-27.png" alt="Lots of planes were mistaken for birds! That makes sense."></p>
+<ul>
+<li>最后一种，下面的一些鸟类图片，我们的神经网络没有正确地识别为鸟类，称之为<strong>假反例</strong>：</li>
+</ul>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-28.png" alt="These birds fooled us! Stupid ostriches! Do they even count as birds?"></p>
+<p>对于15,000张验证图片，把每次的预测结果累加到不同的类别中：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-29.png" alt="enter description here"></p>
+<p>为什么要打破我们的结果而分成这样的四类？因为不是所有的错误都是等概率出现的。</p>
+<p>想像一下，如果我们写一个程序来从核磁共振成像的图片中检测肿瘤。如果我们检测到肿瘤，我们宁愿相信这是假正例而不是假反例。假反例会产生更糟糕的情况——那就是当程序告诉某人没有得肿瘤，但实际上却患有肿瘤。</p>
+<p>不只是粗略的观察整体的精确度，我们计算准确率和召回率指标。这两个指标给了我们一个在性能上更加清晰的画面：</p>
+<p><img src="http://7xvohu.com1.z0.glb.clouddn.com/MLp3-30.png" alt="enter description here"></p>
+<p>这张图告诉我们，97%的次数预测为“鸟类”，我们是正确的！但是也告诉我们，在数据集中我们只发现有90%是真正的鸟类图片。换句话说，我们可能找不到每一种鸟，但是可以确保找到它的时候一定是鸟类！</p>
+<h1 id="接下来做些什么"><a href="#接下来做些什么" class="headerlink" title="接下来做些什么"></a>接下来做些什么</h1><p>现在你已经知道深度卷积神经网络的基本知识，你可以尝试弄一弄<a href="https://github.com/tflearn/tflearn/tree/master/examples#tflearn-examples" target="_blank" rel="external">tflearn的例程</a>。它甚至有内置的数据集，所以你甚至不需要找你自己的图片。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag">#机器学习</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/22/ML is fun!(Part2)/" rel="next" title="ML is fun!(Part 2)">
+                <i class="fa fa-chevron-left"></i> ML is fun!(Part 2)
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/11/27/ML is fun part3深度学习和卷积神经网络/"
+     data-title="ML is fun!(part3深度学习和卷积神经网络)"
+     data-content=""
+     data-url="http://henryliyunfeng.github.io/2016/11/27/ML is fun part3深度学习和卷积神经网络/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/27/ML is fun part3深度学习和卷积神经网络/"
+           data-title="ML is fun!(part3深度学习和卷积神经网络)" data-url="http://henryliyunfeng.github.io/2016/11/27/ML is fun part3深度学习和卷积神经网络/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xvohu.com1.z0.glb.clouddn.com/%E5%A4%B4%E5%83%8F.jpg"
+               alt="Yunfeng" />
+          <p class="site-author-name" itemprop="name">Yunfeng</p>
+          <p class="site-description motion-element" itemprop="description">今天比昨日多努力0.01%，只为遇见更好的自己。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/henryliyunfeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2953020495" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/li-xiao-yun-41-61" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#深度学习的目标识别"><span class="nav-number">1.</span> <span class="nav-text">深度学习的目标识别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#从简单地开始"><span class="nav-number">2.</span> <span class="nav-text">从简单地开始</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#其实想一想，一切都是数字"><span class="nav-number">2.1.</span> <span class="nav-text">其实想一想，一切都是数字</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#致命陷阱"><span class="nav-number">3.</span> <span class="nav-text">致命陷阱</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#暴力法-1：滑动窗口搜索"><span class="nav-number">3.1.</span> <span class="nav-text">暴力法#1：滑动窗口搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#暴力法-2：更多的数据和深度神经网络"><span class="nav-number">3.2.</span> <span class="nav-text">暴力法#2：更多的数据和深度神经网络</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决方案就是卷积"><span class="nav-number">4.</span> <span class="nav-text">解决方案就是卷积</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#卷积如何工作"><span class="nav-number">5.</span> <span class="nav-text">卷积如何工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-1：分割图像成重叠的图像块"><span class="nav-number">5.1.</span> <span class="nav-text">Step 1：分割图像成重叠的图像块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-2：把每个小图像块输入小型神经网络"><span class="nav-number">5.2.</span> <span class="nav-text">Step 2：把每个小图像块输入小型神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-3：保存每个图像块的结果到新数组"><span class="nav-number">5.3.</span> <span class="nav-text">Step 3：保存每个图像块的结果到新数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-4-减采样"><span class="nav-number">5.4.</span> <span class="nav-text">Step 4: 减采样</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Final-step：做预测"><span class="nav-number">5.5.</span> <span class="nav-text">Final step：做预测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加更多的步骤"><span class="nav-number">5.6.</span> <span class="nav-text">添加更多的步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建正确的神经网络"><span class="nav-number">5.7.</span> <span class="nav-text">构建正确的神经网络</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#建立我们鸟类的分类器"><span class="nav-number">6.</span> <span class="nav-text">建立我们鸟类的分类器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试我们神经网络"><span class="nav-number">7.</span> <span class="nav-text">测试我们神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#真的有95-准确吗？"><span class="nav-number">7.1.</span> <span class="nav-text">真的有95%准确吗？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接下来做些什么"><span class="nav-number">8.</span> <span class="nav-text">接下来做些什么</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yunfeng</span>
+  
+  <span id="busuanzi_container_site_pv">
+    &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;本站总访问量<span id="busuanzi_value_site_pv"></span>
+</span>
+<span id="busuanzi_container_site_uv">
+  &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;茫茫人海，您是第<span id="busuanzi_value_site_uv"></span>个来到的小伙伴
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"henryliyunfeng"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("TiFFJLE8TDLzKGAXQ2PFLdzr-gzGzoHsz", "ceYX24I4vU17FYJgnEk485JN");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
